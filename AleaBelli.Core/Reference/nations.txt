@@ -1,0 +1,20 @@
+﻿# AB Map Generator 07/07/2017
+# Nations
+# id, name, basecolour
+0,None,#d3d3d3
+1,United Kingdom,#FFDEB887
+2,Germany,#FF778899
+3,USA,#d3d3d3
+4,USSR,#d3d3d3
+5,France,#d3d3d3
+6,Japan,#d3d3d3
+10,England,#ff3300
+11,Scotland,#0066ff
+12,Wales,#66ff33
+13,Northern Ireland,#d3d3d3
+14,Ireland,#d3d3d3
+15,Belgium,#d3d3d3
+16,Netherlands,#d3d3d3
+17,Luxembourg,#d3d3d3
+18,Italy,#d3d3d3
+19,Switzerland,#d3d3d3
