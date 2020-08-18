@@ -3,8 +3,10 @@ using AleaBelli.Core.Network;
 using AleaBelli.UI;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,11 +28,16 @@ namespace AleaBelli
     /// </summary>
     public partial class MainWindow : Window
     {
-        private StandaloneAleaBelliGame game;
+        private static StandaloneAleaBelliGame game;
+        private System.Threading.Timer backgroundTimer;
+        static readonly object _locker = new object();
 
         public MainWindow()
         {
             InitializeComponent();
+
+            game = new StandaloneAleaBelliGame();
+            AmericanCivilWarGameCreator.CreateGame(game);
 
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1);
@@ -43,13 +50,65 @@ namespace AleaBelli
             MapVisualHost mvh = new MapVisualHost(game);
             this.MapCanvas.Children.Add(mvh);
             this.MapCanvas.InvalidateVisual();
+
+            var autoEvent = new AutoResetEvent(false);
+            backgroundTimer = new System.Threading.Timer(BackgroundUpdate, autoEvent, 1000, 100);
+
+
+            
+            
+
         }
+
+        private static void BackgroundUpdate(Object stateInfo)
+        {
+            lock (_locker)
+            {
+                try
+                {
+
+                    AutoResetEvent autoEvent = (AutoResetEvent)stateInfo;
+                    lastBackgroundUpdate = DateTime.Now;
+
+                    game.UpdateGameStates();
+                }
+                catch(Exception ex)
+                {
+
+                }
+                finally
+                {
+
+                }
+            }
+
+
+        }
+
+        private static DateTime lastBackgroundUpdate = DateTime.Now;
+
 
         void timer_Tick(object sender, EventArgs e)
         {
-            textBlock.Text = DateTime.Now.ToLongTimeString();
+            lock (_locker)
+            {
+                try
+                {
+                    textBlock.Text = lastBackgroundUpdate.ToLongTimeString();
+                    game.UpdateGameVisuals();
+                }
+                catch (Exception ex)
+                {
 
-            game.UpdateGameVisuals();
+                }
+                finally
+                {
+
+                }
+
+
+               
+            }
         }
 
         const double ScaleRate = 1.1;
@@ -72,8 +131,6 @@ namespace AleaBelli
 
         private void MapCanvas_Initialized(object sender, EventArgs e)
         {
-            game = new StandaloneAleaBelliGame();
-            AmericanCivilWarGameCreator.CreateGame(game);
         }
 
         private void DrawPoint(Point p, Brush stroke)
