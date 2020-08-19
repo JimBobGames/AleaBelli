@@ -11,12 +11,20 @@ namespace AleaBelli.Core.Data
         private List<Regiment> regiments = new List<Regiment>();
 
         public int BrigadeId { get; set; }
+
         public List<Regiment> Regiments
         {
             get
             {
                 return regiments;
             }
+        }
+
+        public Regiment AddRegiment(Regiment r)
+        {
+            regiments.Add(r);
+
+            return r;
         }
 
     }

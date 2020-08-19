@@ -57,6 +57,17 @@ namespace AleaBelli.Core.Data
 
         public int GetWidthInPaces()
         {
+            return 100;
+        }
+
+        public int GetDepthInPaces()
+        {
+            return 15;
+        }
+
+        /*
+        public int GetWidthInPaces()
+        {
             switch (RegimentType)
             {
                 case RegimentType.LineInfantry: return GetLineInfantryWidth();
@@ -74,7 +85,7 @@ namespace AleaBelli.Core.Data
 
             return 100;
         }
-
+        */
         private int GetLineInfantryWidth()
         {
             switch (RegimentFormation)

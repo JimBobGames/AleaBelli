@@ -1,4 +1,5 @@
-﻿using AleaBelli.Core.Hex;
+﻿using AleaBelli.Core.Data;
+using AleaBelli.Core.Hex;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,15 +10,9 @@ namespace AleaBelli.Core.Network
 {
     public interface IAleaBelliGame
     {
-        bool RenderHexGrid
+        Dictionary<int, Army> Armies
         {
             get;
-            set;
         }
-
-        HexMap HexMap { get; }
-        Layout HexLayout { get; }
-
-        void UpdateGameVisuals();
     }
 }

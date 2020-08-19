@@ -10,52 +10,37 @@ namespace AleaBelli.Core.Network
 {
     public class AleaBelliGame : IAleaBelliGame
     {
-        private Layout hexLayout;
-        private HexMap map;
         private Dictionary<int, Player> players = new Dictionary<int, Player>();
+        private Dictionary<int, Nation> nations = new Dictionary<int, Nation>();
+        private Dictionary<int, Army> armies = new Dictionary<int, Army>();
 
-        public void UpdateGameVisuals()
+        public Dictionary<int, Army> Armies
         {
-
+            get
+            {
+                return armies;
+            }
         }
 
-        internal void AddPlayer(Player p)
+        internal Player AddPlayer(Player p)
         {
             players[p.PlayerId] = p;
+
+            return p;
         }
 
-        public Layout HexLayout
+        internal Nation AddNation(Nation n)
         {
-            get
-            {
-                return hexLayout;
-            }
+            nations[n.NationId] = n;
 
-            internal set
-            {
-                hexLayout = value;
-            }
-
+            return n;
         }
 
-        public HexMap HexMap
+        internal Army AddArmy(Army a)
         {
-            get
-            {
-                return map;
-            }
+            armies[a.ArmyId] = a;
 
-            internal set
-            {
-                map = value;
-            }
-
-        }
-
-        public bool RenderHexGrid
-        {
-            get;
-            set;
+            return a;
         }
     }
 }

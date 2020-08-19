@@ -1,6 +1,7 @@
 ﻿using AleaBelli.Core.Hex;
 using AleaBelli.Core.Network;
 using AleaBelli.UI;
+using AleaBelli.UI.GameRenderer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,25 +32,31 @@ namespace AleaBelli
         private static StandaloneAleaBelliGame game;
         private System.Threading.Timer backgroundTimer;
         static readonly object _locker = new object();
+        private static MapVisualHost mapVisualHost;
 
         public MainWindow()
         {
             InitializeComponent();
 
+            // create the game
             game = new StandaloneAleaBelliGame();
             AmericanCivilWarGameCreator.CreateGame(game);
 
+            // the visual host
+            mapVisualHost = new MapVisualHost(game);
+            this.MapCanvas.Children.Add(mapVisualHost);
+            this.MapCanvas.InvalidateVisual();
+
+
             DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Interval = TimeSpan.FromMilliseconds(100);
             timer.Tick += timer_Tick;
             timer.Start();
 
             //MapCanvas.MouseEnter += new MouseEventHandler(canvas_MouseEnter);
             MapCanvas.MouseWheel += new MouseWheelEventHandler(Canvas_MouseWheel);
 
-            MapVisualHost mvh = new MapVisualHost(game);
-            this.MapCanvas.Children.Add(mvh);
-            this.MapCanvas.InvalidateVisual();
+
 
             var autoEvent = new AutoResetEvent(false);
             backgroundTimer = new System.Threading.Timer(BackgroundUpdate, autoEvent, 1000, 100);
@@ -95,7 +102,10 @@ namespace AleaBelli
                 try
                 {
                     textBlock.Text = lastBackgroundUpdate.ToLongTimeString();
-                    game.UpdateGameVisuals();
+                    mapVisualHost.UpdateGameVisuals();
+                    this.MapCanvas.InvalidateVisual();
+                    this.MapCanvas.UpdateLayout();
+                    //this.MapCanvas.i
                 }
                 catch (Exception ex)
                 {
@@ -165,106 +175,6 @@ namespace AleaBelli
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-        }
-
-        private void Window_LoadedXXX(object sender, RoutedEventArgs e)
-        {
-            Line l = new Line();
-            l.Stroke = Brushes.LightSteelBlue;
-
-            l.X1 = 1;
-            l.X2 = 50;
-            l.Y1 = 1;
-            l.Y2 = 50;
-
-            l.StrokeThickness = 2;
-            this.MapCanvas.Children.Add(l);
-
-            HexMap map = game.HexMap;
-            Layout layout = game.HexLayout;
-
-            for (int r = 0; r < map.MapHeight; r++)
-            {
-                //int r_offset = (int) Math.Floor( (double) (r / 2)); // or r>>1
-                int r_offset = map.GetRowOffset(r);
-
-                for (int q = -r_offset; q < map.MapWidth - r_offset; q++)
-                {
-                    Point p = new Point(r, q);
-                    Hex hex = map.GetHex(p);
-                    MapHex maphex = new MapHex(hex, r, q + r_offset);
-                    Point[] hexpoints = layout.PolygonCorners(hex).ToArray<Point>();
-
-                    for(int i = 0; i<hexpoints.Length-1;i++)
-                    {
-                        l = new Line();
-                        l.Stroke = Brushes.LightSteelBlue;
-
-                        l.X1 = hexpoints[i].x;
-                        l.X2 = hexpoints[i+1].x;
-                        l.Y1 = hexpoints[i].y;
-                        l.Y2 = hexpoints[i+1].y;
-
-                        l.StrokeThickness = 2;
-                        this.MapCanvas.Children.Add(l);
-
-
-                    }
-                    DrawLine(hexpoints[2], hexpoints[4]);
-              
-
-
-                    /*
-                    l = new Line();
-                    l.Stroke = Brushes.LightSteelBlue;
-
-                    l.X1 = hexpoints[0].x;
-                    l.X2 = hexpoints[1].x;
-                    l.Y1 = hexpoints[0].y;
-                    l.Y2 = hexpoints[1].y;
-
-                    l.StrokeThickness = 2;
-                    this.MapCanvas.Children.Add(l);
-                    */
-                }
-
-                // get hex at coords
-                Point hexp = new Point(100, 100);
-                FractionalHex fh = layout.PixelToHex(hexp);
-                
-                DrawPoint(hexp);
-                List<Point> hexpoints2 = layout.PolygonCorners(fh.HexRound());
-                foreach (Point pt in hexpoints2)
-                {
-                    DrawPoint(pt);
-                }
-                DrawPoint(hexpoints2[0], Brushes.Green);
-            }
-
-
-
-            /*
-            PointCollection points = new PointCollection();
-            List<ManeBellum.Core.Util.Point> hexpoints = Layout.PolygonCorners(layout, hex);
-
-            StreamGeometry streamGeometry = new StreamGeometry();
-            using (StreamGeometryContext geometryContext = streamGeometry.Open())
-            {
-                Point first = hexpoints[0];
-                geometryContext.BeginFigure(new System.Windows.Point(first.x, first.y), true, true);
-                for (int idx = 1; idx < hexpoints.Count; idx++)
-                {
-                    Point pt = hexpoints[idx];
-                    points.Add(new System.Windows.Point(pt.x, pt.y));
-                }
-                geometryContext.PolyLineTo(points, true, true);
-            }
-
-
-            Pen pen = new Pen(Brushes.Blue, 1.0);
-            dc.DrawGeometry(Brushes.Black, pen, streamGeometry);
-            */
-
         }
 
     }

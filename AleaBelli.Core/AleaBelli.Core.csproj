@@ -46,7 +46,10 @@
   <ItemGroup>
     <Compile Include="Changes\AbstractChange.cs" />
     <Compile Include="Changes\UnitChange.cs" />
+    <Compile Include="Data\Army.cs" />
     <Compile Include="Data\Brigade.cs" />
+    <Compile Include="Data\Corps.cs" />
+    <Compile Include="Data\ArmyDivision.cs" />
     <Compile Include="Data\Nation.cs" />
     <Compile Include="Data\Player.cs" />
     <Compile Include="Data\Regiment.cs" />

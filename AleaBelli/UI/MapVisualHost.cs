@@ -1,4 +1,5 @@
-﻿using AleaBelli.Core.Network;
+﻿using AleaBelli.Core.Data;
+using AleaBelli.Core.Network;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -21,26 +22,145 @@ public class MapVisualHost : FrameworkElement
 {
     private List<Visual> m_Visuals = new List<Visual>();
     private IAleaBelliGame game = null;
+    private Dictionary<int, DrawingVisual> regimentVisuals = new Dictionary<int, DrawingVisual>();
 
     public MapVisualHost(IAleaBelliGame game)
     {
         this.game = game;
         this.ClipToBounds = false;
 
-        //DrawScreen();
+            //DrawScreen();
 
-        CreateMapVisuals();
-        m_Visuals.Add(CreateDrawingVisualRectangle());
-        //_children.Add(CreateDrawingVisualText());
-        //_children.Add(CreateDrawingVisualEllipses());
+            //CreateMapVisuals();
+            UpdateGameVisuals();
+            //m_Visuals.Add(CreateDrawingVisualRectangle());
 
-        // Add the event handler for MouseLeftButtonUp.
-        //this.MouseLeftButtonUp += new System.Windows.Input.MouseButtonEventHandler(MyVisualHost_MouseLeftButtonUp);
+            // Add the event handler for MouseLeftButtonUp.
+            //this.MouseLeftButtonUp += new System.Windows.Input.MouseButtonEventHandler(MyVisualHost_MouseLeftButtonUp);
 
 
-    }
+        }
 
-    class Battalion
+        public void DrawScreen(IAleaBelliGame client)
+        {
+            // Remove all Visuals
+            m_Visuals.ForEach(delegate (Visual v) { RemoveVisualChild(v); });
+            m_Visuals.Clear();
+
+            //m_Visuals.Add(CreateDrawingVisualRectangle(client));
+
+            m_Visuals.ForEach(delegate (Visual v) { AddVisualChild(v); });
+        }
+
+
+        /// <summary>
+        /// Runs in the game UI Thread
+        /// </summary>
+        public void UpdateGameVisuals()
+        {
+            // Remove all Visuals
+            m_Visuals.ForEach(delegate (Visual v) { RemoveVisualChild(v); });
+            m_Visuals.Clear();
+
+            regimentVisuals.Clear();
+
+            // update the regiments if required
+            foreach (Army a in game.Armies.Values)
+            {
+                foreach (Corps c in a.Corps)
+                {
+                    foreach (ArmyDivision d in c.Divisons)
+                    {
+
+                        foreach (Brigade b in d.Brigades)
+                        {
+                            foreach (Regiment r in b.Regiments)
+                            {
+                                // does this need to be redrawn ?
+                                if (!regimentVisuals.ContainsKey(r.RegimentId))
+                                {
+                                    DrawingVisual dv = CreateRegimentalDrawingVisual(r);
+                                    m_Visuals.Add(dv);
+                                    AddVisualChild(dv);
+
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+
+
+
+
+        }
+
+        private void DrawRegiment(DrawingContext dc, Regiment r)
+        {
+            int width = r.GetWidthInPaces();
+            int halfwidth = width / 2;
+            int height = r.GetDepthInPaces();
+
+            int x = 100;
+            int y = 100;
+            int angle = r.FacingInDegrees;
+
+            r.ShortName = DateTime.Now.ToLongTimeString();
+
+            dc.PushTransform(new RotateTransform(angle, x + halfwidth, y));
+
+            // Create a rectangle and draw it in the DrawingContext.
+            Rect rect = new Rect(new System.Windows.Point(x, y), new System.Windows.Size(width, height));
+            dc.DrawRectangle(System.Windows.Media.Brushes.Blue, (System.Windows.Media.Pen)null, rect);
+
+            //Rect rect2 = new Rect(new System.Windows.Point(x, y + height), new System.Windows.Size(width, 10));
+            //dc.DrawRectangle(System.Windows.Media.Brushes.Black, (System.Windows.Media.Pen)null, rect2);
+
+            /*
+            Rect rect3 = new Rect(new System.Windows.Point(x + (halfwidth - widgetsize) //150
+            , y - widgetsize), new System.Windows.Size(20, 10));
+            dc.DrawRectangle(System.Windows.Media.Brushes.Red, (System.Windows.Media.Pen)null, rect3);
+            */
+
+            dc.DrawText(
+
+
+           new FormattedText(r.ShortName,
+              CultureInfo.GetCultureInfo("en-us"),
+              FlowDirection.LeftToRight,
+              new Typeface("Verdana"),
+              12, System.Windows.Media.Brushes.Black),
+              new System.Windows.Point(x, y + height));
+
+
+
+            dc.Pop();
+        }
+
+
+        private DrawingVisual CreateRegimentalDrawingVisual(Regiment r)
+        {
+            DrawingVisual drawingVisual = new DrawingVisual();
+            using (DrawingContext dc = drawingVisual.RenderOpen())
+            {
+                DrawRegiment(dc, r);
+
+                //Rect rect = new Rect(new System.Windows.Point(50, 50), new System.Windows.Size(100, 100));
+                //dc.DrawRectangle(System.Windows.Media.Brushes.Blue, (System.Windows.Media.Pen)null, rect);
+
+
+                //DrawRegiment(dc, 120, 120, 45, new Battalion() { ShortName = "1st NY" });
+                // DrawRegiment(dc, 220, 160, 55, new Battalion() { ShortName = "2nd NY" });
+                // DrawRegiment(dc, 320, 220, 65, new Battalion() { ShortName = "3rd NY" });
+
+            }
+            return drawingVisual;
+        }
+
+
+
+        class Battalion
     {
         public string ShortName { get; internal set; }
 
@@ -92,13 +212,6 @@ public class MapVisualHost : FrameworkElement
     }
 
 
-    private void CreateMapVisuals()
-    {
-//        foreach (SolarSystem ss in game.GalacticMap.SolarSystemsListUnsorted)
-//        {
-//
-//        }
-    }
 
     private DrawingVisual CreateDrawingVisualRectangle()
     {
