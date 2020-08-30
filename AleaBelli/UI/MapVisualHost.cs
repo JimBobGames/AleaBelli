@@ -8,26 +8,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace AleaBelli.UI
 {
-
-/// <summary>
-/// https://www.c-sharpcorner.com/UploadFile/393ac5/frameworkelement-class-in-wpf/
-/// 
-/// https://docs.microsoft.com/en-us/dotnet/framework/wpf/advanced/optimizing-performance-2d-graphics-and-imaging
-/// </summary>
-public class MapVisualHost : FrameworkElement
+    /// <summary>
+    /// https://www.c-sharpcorner.com/UploadFile/393ac5/frameworkelement-class-in-wpf/
+    /// 
+    /// https://docs.microsoft.com/en-us/dotnet/framework/wpf/advanced/optimizing-performance-2d-graphics-and-imaging
+    /// 
+    /// hit testing
+    /// https://docs.microsoft.com/en-us/dotnet/framework/wpf/graphics-multimedia/using-drawingvisual-objects
+    /// </summary>
+    public class MapVisualHost : FrameworkElement
 {
     private List<Visual> m_Visuals = new List<Visual>();
     private IAleaBelliGame game = null;
-    private Dictionary<int, DrawingVisual> regimentVisuals = new Dictionary<int, DrawingVisual>();
+    private Dictionary<DrawingVisual, Regiment> regimentVisuals = new Dictionary<DrawingVisual, Regiment>();
+    private Dictionary<int, DrawingVisual> regimentVisualsById = new Dictionary<int, DrawingVisual>();
+    private Controller controller;
 
-    public MapVisualHost(IAleaBelliGame game)
+    public MapVisualHost(IAleaBelliGame game, Controller controller)
     {
         this.game = game;
         this.ClipToBounds = false;
+        this.controller = controller;
 
             //DrawScreen();
 
@@ -36,11 +42,51 @@ public class MapVisualHost : FrameworkElement
             //m_Visuals.Add(CreateDrawingVisualRectangle());
 
             // Add the event handler for MouseLeftButtonUp.
-            //this.MouseLeftButtonUp += new System.Windows.Input.MouseButtonEventHandler(MyVisualHost_MouseLeftButtonUp);
+            this.MouseLeftButtonUp += new System.Windows.Input.MouseButtonEventHandler(OnMouseLeftButtonDown);
 
 
         }
 
+
+        // Respond to the left mouse button down event by initiating the hit test.
+        private void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // Retrieve the coordinate of the mouse position.
+            System.Windows.Point pt = e.GetPosition((UIElement)sender);
+
+            // Initiate the hit test by setting up a hit test result callback method.
+            VisualTreeHelper.HitTest(this, null, new HitTestResultCallback(HitTestCallBack), new PointHitTestParameters(pt));
+        }
+
+        // If a child visual object is hit, toggle its opacity to visually indicate a hit.
+        public HitTestResultBehavior HitTestCallBack(HitTestResult result)
+        {
+            if (result.VisualHit.GetType() == typeof(DrawingVisual))
+            {
+                DrawingVisual visualHit = (DrawingVisual)result.VisualHit;
+
+                // is this a regiment ??
+                if (regimentVisuals.ContainsKey(visualHit))
+                {
+                    controller.OnClickRegiment(regimentVisuals[visualHit]);
+                }
+
+                if (((DrawingVisual)result.VisualHit).Opacity == 1.0)
+                {
+                    ((DrawingVisual)result.VisualHit).Opacity = 0.4;
+                }
+                else
+                {
+                    ((DrawingVisual)result.VisualHit).Opacity = 1.0;
+                }
+            }
+
+            // Stop the hit test enumeration of objects in the visual tree.
+            return HitTestResultBehavior.Stop;
+        }
+
+
+        /*
         public void DrawScreen(IAleaBelliGame client)
         {
             // Remove all Visuals
@@ -50,7 +96,47 @@ public class MapVisualHost : FrameworkElement
             //m_Visuals.Add(CreateDrawingVisualRectangle(client));
 
             m_Visuals.ForEach(delegate (Visual v) { AddVisualChild(v); });
+        }*/
+    
+        public void UpdateGameVisualsWithChangeList(UIChanges changes)
+        {
+            if (changes != null)
+            {
+                // redraw any regimentd
+                foreach (int rid in changes.RegimentalIds.ToList())
+                {
+                    Regiment r = game.GetRegiment(rid);
+                    RedrawRegiment(r, true);
+                }
+            }
         }
+
+
+        public void RedrawRegiment(Regiment r, bool removeOldVisuals)
+        {
+            if (r != null)
+            {
+                if (removeOldVisuals)
+                {
+                    // remove the old visual if it exists
+                    DrawingVisual oldVisual = null;
+                    regimentVisualsById.TryGetValue(r.RegimentId, out oldVisual);
+                    if (oldVisual != null)
+                    {
+                        RemoveVisualChild(oldVisual);
+                        m_Visuals.Remove(oldVisual);
+                    }
+                }
+
+                // render a new visual
+                DrawingVisual dv = CreateRegimentalDrawingVisual(r);
+                regimentVisuals[dv] = r;
+                regimentVisualsById[r.RegimentId] = dv;
+                m_Visuals.Add(dv);
+                AddVisualChild(dv);
+            }
+        }
+
 
 
         /// <summary>
@@ -76,14 +162,15 @@ public class MapVisualHost : FrameworkElement
                         {
                             foreach (Regiment r in b.Regiments)
                             {
-                                // does this need to be redrawn ?
-                                if (!regimentVisuals.ContainsKey(r.RegimentId))
-                                {
-                                    DrawingVisual dv = CreateRegimentalDrawingVisual(r);
+                                RedrawRegiment(r, false);
+                                /*
+                                DrawingVisual dv = CreateRegimentalDrawingVisual(r);
+                                //dv.
+                                    regimentVisuals[dv] = r;
+                                    regimentVisualsById[r.RegimentId] = dv;
                                     m_Visuals.Add(dv);
                                     AddVisualChild(dv);
-
-                                }
+                                    */
                             }
                         }
                     }
@@ -102,8 +189,10 @@ public class MapVisualHost : FrameworkElement
             int halfwidth = width / 2;
             int height = r.GetDepthInPaces();
 
-            int x = 100;
-            int y = 100;
+            //int x = 100;
+            //int y = 100;
+            int x = r.MapX;
+            int y = r.MapY;
             int angle = r.FacingInDegrees;
 
             r.ShortName = DateTime.Now.ToLongTimeString();

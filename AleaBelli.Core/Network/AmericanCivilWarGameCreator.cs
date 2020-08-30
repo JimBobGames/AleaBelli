@@ -50,8 +50,16 @@ namespace AleaBelli.Core.Network
 
             Brigade brigade1 = firstDivision.AddBrigade( new Brigade() {BrigadeId=1, Name="Iron Brigade" });
 
-            Regiment r1 = brigade1.AddRegiment( 
-                new Regiment() {RegimentId=1, Name="1st New York", ShortName = "1st NY", RegimentFormation=RegimentFormation.Line2, FacingInDegrees=45 });
+            Regiment r1 = g.AddRegiment(brigade1,
+                new Regiment() { RegimentId = 1, Name = "1st New York", ShortName = "1st NY", RegimentFormation = RegimentFormation.Line2, FacingInDegrees = 45, MapX = 100, MapY = 100 });
+            Regiment r2 = g.AddRegiment(brigade1,
+                new Regiment() { RegimentId = 1, Name = "2nd New York", ShortName = "2nd NY", RegimentFormation = RegimentFormation.Line2, FacingInDegrees = 90, MapX = 200, MapY = 150 });
+            Regiment r3 = g.AddRegiment(brigade1,
+                new Regiment() { RegimentId = 1, Name = "3rd New York", ShortName = "3rd NY", RegimentFormation = RegimentFormation.Line2, FacingInDegrees = 120, MapX = 300, MapY = 200 });
+            Regiment r4 = g.AddRegiment(brigade1,
+                new Regiment() { RegimentId = 1, Name = "4th New York", ShortName = "4th NY", RegimentFormation = RegimentFormation.Line2, FacingInDegrees = 270, MapX = 400, MapY = 230 });
+
+
         }
     }
 

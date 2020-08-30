@@ -1,4 +1,5 @@
-﻿using AleaBelli.Core.Hex;
+﻿using AleaBelli.Core.Data;
+using AleaBelli.Core.Hex;
 using AleaBelli.Core.Network;
 using AleaBelli.UI;
 using AleaBelli.UI.GameRenderer;
@@ -33,6 +34,7 @@ namespace AleaBelli
         private System.Threading.Timer backgroundTimer;
         static readonly object _locker = new object();
         private static MapVisualHost mapVisualHost;
+        private Controller controller;
 
         public MainWindow()
         {
@@ -41,20 +43,24 @@ namespace AleaBelli
             // create the game
             game = new StandaloneAleaBelliGame();
             AmericanCivilWarGameCreator.CreateGame(game);
+            controller = new Controller() { Game = game };
+
 
             // the visual host
-            mapVisualHost = new MapVisualHost(game);
+            mapVisualHost = new MapVisualHost(game, controller);
             this.MapCanvas.Children.Add(mapVisualHost);
             this.MapCanvas.InvalidateVisual();
 
 
             DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(100);
+            timer.Interval = TimeSpan.FromMilliseconds(50);
             timer.Tick += timer_Tick;
             timer.Start();
 
             //MapCanvas.MouseEnter += new MouseEventHandler(canvas_MouseEnter);
             MapCanvas.MouseWheel += new MouseWheelEventHandler(Canvas_MouseWheel);
+           // MapCanvas.MouseLeftButtonUp += new System.Windows.Input.MouseButtonEventHandler(OnMouseLeftButtonDown);
+
 
 
 
@@ -67,6 +73,8 @@ namespace AleaBelli
 
         }
 
+
+
         private static void BackgroundUpdate(Object stateInfo)
         {
             lock (_locker)
@@ -77,7 +85,9 @@ namespace AleaBelli
                     AutoResetEvent autoEvent = (AutoResetEvent)stateInfo;
                     lastBackgroundUpdate = DateTime.Now;
 
-                    game.UpdateGameStates();
+                    game.UpdateGameStates(changes);
+
+                   // mapVisualHost.Refresh();
                 }
                 catch(Exception ex)
                 {
@@ -93,6 +103,7 @@ namespace AleaBelli
         }
 
         private static DateTime lastBackgroundUpdate = DateTime.Now;
+        private static UIChanges changes = new UIChanges();
 
 
         void timer_Tick(object sender, EventArgs e)
@@ -102,10 +113,16 @@ namespace AleaBelli
                 try
                 {
                     textBlock.Text = lastBackgroundUpdate.ToLongTimeString();
-                    mapVisualHost.UpdateGameVisuals();
-                    this.MapCanvas.InvalidateVisual();
-                    this.MapCanvas.UpdateLayout();
-                    //this.MapCanvas.i
+
+                    mapVisualHost.UpdateGameVisualsWithChangeList(changes);
+                    changes = new UIChanges();
+
+                    //mapVisualHost.UpdateGameVisuals();
+
+                    //this.MapCanvas.InvalidateVisual();
+                    //this.MapCanvas.UpdateLayout();
+
+                    //mapVisualHost.Refresh();
                 }
                 catch (Exception ex)
                 {
@@ -176,6 +193,7 @@ namespace AleaBelli
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
         }
+        //this.MouseLeftButtonUp += new System.Windows.Input.MouseButtonEventHandler(OnMouseLeftButtonDown);
 
     }
 }

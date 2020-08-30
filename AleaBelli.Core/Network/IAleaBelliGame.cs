@@ -14,5 +14,7 @@ namespace AleaBelli.Core.Network
         {
             get;
         }
+
+        Regiment GetRegiment(int regimentId);
     }
 }

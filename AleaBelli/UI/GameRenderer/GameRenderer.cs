@@ -12,9 +12,7 @@ namespace AleaBelli.UI.GameRenderer
         public AleaBelliGame Game { get; set; }
         public MapVisualHost MapVisualHost { get; set; }
 
-        public void CreateVisualElements()
-        {
 
-        }
+
     }
 }

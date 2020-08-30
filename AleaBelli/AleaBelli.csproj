@@ -58,7 +58,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="UI\Controller.cs" />
     <Compile Include="UI\EventHandlerExtensions.cs" />
+    <Compile Include="UI\GameRenderer\ExtensionMethods.cs" />
     <Compile Include="UI\GameRenderer\GameRenderer.cs" />
     <Compile Include="UI\GameRenderer\TiledMapRenderer.cs" />
     <Compile Include="UI\MapVisualHost.cs" />
