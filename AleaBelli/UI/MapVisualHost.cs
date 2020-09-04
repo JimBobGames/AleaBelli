@@ -34,23 +34,21 @@ namespace AleaBelli.UI
         this.game = game;
         this.ClipToBounds = false;
         this.controller = controller;
-
-            //DrawScreen();
-
-            //CreateMapVisuals();
-            UpdateGameVisuals();
-            //m_Visuals.Add(CreateDrawingVisualRectangle());
+        UpdateGameVisuals();
 
             // Add the event handler for MouseLeftButtonUp.
-            this.MouseLeftButtonUp += new System.Windows.Input.MouseButtonEventHandler(OnMouseLeftButtonDown);
+///            this.MouseLeftButtonUp += new System.Windows.Input.MouseButtonEventHandler(OnMouseLeftButtonDown);
 
 
         }
 
 
         // Respond to the left mouse button down event by initiating the hit test.
-        private void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        public void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            // reset selection
+            game.SelectedRegiment = null;
+
             // Retrieve the coordinate of the mouse position.
             System.Windows.Point pt = e.GetPosition((UIElement)sender);
 
@@ -61,6 +59,8 @@ namespace AleaBelli.UI
         // If a child visual object is hit, toggle its opacity to visually indicate a hit.
         public HitTestResultBehavior HitTestCallBack(HitTestResult result)
         {
+
+
             if (result.VisualHit.GetType() == typeof(DrawingVisual))
             {
                 DrawingVisual visualHit = (DrawingVisual)result.VisualHit;
@@ -109,6 +109,7 @@ namespace AleaBelli.UI
                     RedrawRegiment(r, true);
                 }
             }
+            
         }
 
 
@@ -179,8 +180,7 @@ namespace AleaBelli.UI
             }
 
 
-
-
+          
         }
 
         private void DrawRegiment(DrawingContext dc, Regiment r)

@@ -15,6 +15,8 @@ namespace AleaBelli.Core.Network
         private Dictionary<int, Army> armies = new Dictionary<int, Army>();
         private Dictionary<int, Regiment> regiments = new Dictionary<int, Regiment>();
 
+        public Regiment SelectedRegiment { get; set; }
+
         /// <summary>
         /// Runs in background thread CANNOT change visuals
         /// </summary>

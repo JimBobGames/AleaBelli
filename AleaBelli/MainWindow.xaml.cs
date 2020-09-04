@@ -59,9 +59,10 @@ namespace AleaBelli
 
             //MapCanvas.MouseEnter += new MouseEventHandler(canvas_MouseEnter);
             MapCanvas.MouseWheel += new MouseWheelEventHandler(Canvas_MouseWheel);
-           // MapCanvas.MouseLeftButtonUp += new System.Windows.Input.MouseButtonEventHandler(OnMouseLeftButtonDown);
+            // MapCanvas.MouseLeftButtonUp += new System.Windows.Input.MouseButtonEventHandler(OnMouseLeftButtonDown);
 
-
+            this.MouseLeftButtonUp += new System.Windows.Input.MouseButtonEventHandler(OnMouseLeftButtonDown);
+            this.SizeChanged += OnWindowSizeChanged;
 
 
             var autoEvent = new AutoResetEvent(false);
@@ -73,7 +74,26 @@ namespace AleaBelli
 
         }
 
+        private void OnWindowSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            // position detail screen
+            double height = this.ActualHeight - 120.0;
 
+            SelectedDetailCanvas.Visibility = Visibility.Hidden;
+            //Canvas.s
+            Canvas.SetTop(SelectedDetailCanvas, height);
+            //SetTop(child, GetTop(child) / (double)e.OldValue * (double)e.NewValue);
+
+
+        }
+
+        // Respond to the left mouse button down event by initiating the hit test.
+        public void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // delegate to the visual host
+            mapVisualHost.OnMouseLeftButtonDown(sender, e);
+
+        }
 
         private static void BackgroundUpdate(Object stateInfo)
         {
@@ -102,10 +122,27 @@ namespace AleaBelli
 
         }
 
+
+        private void UpdateSelectionDisplay()
+        {
+            if (game.SelectedRegiment == null)
+            {
+                this.SelectedDetailCanvas.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                this.SelectedDetailCanvas.Visibility = Visibility.Visible;
+            }
+        }
+
         private static DateTime lastBackgroundUpdate = DateTime.Now;
         private static UIChanges changes = new UIChanges();
 
-
+        /// <summary>
+        /// The dispathed timer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void timer_Tick(object sender, EventArgs e)
         {
             lock (_locker)
@@ -116,7 +153,7 @@ namespace AleaBelli
 
                     mapVisualHost.UpdateGameVisualsWithChangeList(changes);
                     changes = new UIChanges();
-
+                    UpdateSelectionDisplay();
                     //mapVisualHost.UpdateGameVisuals();
 
                     //this.MapCanvas.InvalidateVisual();
@@ -158,6 +195,7 @@ namespace AleaBelli
 
         private void MapCanvas_Initialized(object sender, EventArgs e)
         {
+
         }
 
         private void DrawPoint(Point p, Brush stroke)
@@ -193,6 +231,11 @@ namespace AleaBelli
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
         }
+
+        private void SelectedDetailCanvas_Initialized(object sender, EventArgs e)
+        {
+        }
+
         //this.MouseLeftButtonUp += new System.Windows.Input.MouseButtonEventHandler(OnMouseLeftButtonDown);
 
     }

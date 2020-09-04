@@ -21,8 +21,15 @@ namespace AleaBelli.UI
             {
                 // something has been clicked
                 Console.WriteLine(r.Name);
+               
             }
 
+            UpdateSelection(r);
+        }
+
+        private void UpdateSelection(Regiment r)
+        {
+            Game.SelectedRegiment = r;
         }
     }
 }

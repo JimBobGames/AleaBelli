@@ -6,11 +6,16 @@
         xmlns:local="clr-namespace:AleaBelli"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded" ResizeMode="CanMinimize" WindowState="Maximized" WindowStartupLocation="CenterScreen" >
-    <Canvas Background="LightGreen" Name="MapCanvas" Initialized="MapCanvas_Initialized" Height="8000" Width="8000">
+    <Canvas Name="OuterCanvas">
+        <Canvas Background="LightGreen" Name="MapCanvas" Initialized="MapCanvas_Initialized" Height="8000" Width="8000" >
         
-            <Canvas.RenderTransform>
-                <ScaleTransform x:Name="st"/>
-            </Canvas.RenderTransform >
-            <TextBlock x:Name="textBlock" >Some text</TextBlock>
+                <Canvas.RenderTransform>
+                    <ScaleTransform x:Name="st"/>
+                </Canvas.RenderTransform >
+                <TextBlock x:Name="textBlock" >Some text</TextBlock>
+        </Canvas>
+        <Canvas Name="SelectedDetailCanvas" Background="DarkGray" Initialized="SelectedDetailCanvas_Initialized" Height="80" Width="80" HorizontalAlignment="Left" VerticalAlignment="Bottom" Canvas.Left="0" >
+            
+        </Canvas>        
     </Canvas>
 </Window>
