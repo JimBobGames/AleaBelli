@@ -27,6 +27,12 @@ namespace AleaBelli.UI
             UpdateSelection(r);
         }
 
+        private void UpdateBrigade(Brigade b)
+        {
+            Game.SelectedRegiment = null;
+            Game.SelectedBrigade = b;
+        }
+
         private void UpdateSelection(Regiment r)
         {
             Game.SelectedRegiment = r;

@@ -61,18 +61,27 @@ namespace AleaBelli
             MapCanvas.MouseWheel += new MouseWheelEventHandler(Canvas_MouseWheel);
             // MapCanvas.MouseLeftButtonUp += new System.Windows.Input.MouseButtonEventHandler(OnMouseLeftButtonDown);
 
-            this.MouseLeftButtonUp += new System.Windows.Input.MouseButtonEventHandler(OnMouseLeftButtonDown);
+            this.MouseRightButtonDown += new System.Windows.Input.MouseButtonEventHandler(OnMouseRightButtonUp);
+            this.MouseLeftButtonUp += new System.Windows.Input.MouseButtonEventHandler(OnMouseLeftButtonUp);
             this.SizeChanged += OnWindowSizeChanged;
 
-
+            lastBackgroundUpdate = DateTime.Now;
             var autoEvent = new AutoResetEvent(false);
             backgroundTimer = new System.Threading.Timer(BackgroundUpdate, autoEvent, 1000, 100);
 
 
-            
-            
+
+
 
         }
+
+        // Respond to the right  mouse button up event by initiating the hit test.
+        public void OnMouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            // draw the formation
+            mapVisualHost.OnMouseRightButtonUp(sender, e);
+        }
+
 
         private void OnWindowSizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -88,10 +97,10 @@ namespace AleaBelli
         }
 
         // Respond to the left mouse button down event by initiating the hit test.
-        public void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        public void OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             // delegate to the visual host
-            mapVisualHost.OnMouseLeftButtonDown(sender, e);
+            mapVisualHost.OnMouseLeftButtonUp(sender, e);
 
         }
 
@@ -103,9 +112,12 @@ namespace AleaBelli
                 {
 
                     AutoResetEvent autoEvent = (AutoResetEvent)stateInfo;
+                    var currentTime = DateTime.Now;
                     lastBackgroundUpdate = DateTime.Now;
+                    var timeDelta = currentTime - lastBackgroundUpdate;
+                    double totalMS = timeDelta.TotalMilliseconds;
 
-                    game.UpdateGameStates(changes);
+                    game.UpdateGameStates(changes, totalMS);
 
                    // mapVisualHost.Refresh();
                 }

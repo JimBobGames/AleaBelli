@@ -27,6 +27,8 @@ namespace AleaBelli.UI
     private IAleaBelliGame game = null;
     private Dictionary<DrawingVisual, Regiment> regimentVisuals = new Dictionary<DrawingVisual, Regiment>();
     private Dictionary<int, DrawingVisual> regimentVisualsById = new Dictionary<int, DrawingVisual>();
+    private Dictionary<DrawingVisual, Brigade> brigadeVisuals = new Dictionary<DrawingVisual, Brigade>();
+    private Dictionary<int, DrawingVisual> brigadeVisualsById = new Dictionary<int, DrawingVisual>();
     private Controller controller;
 
     public MapVisualHost(IAleaBelliGame game, Controller controller)
@@ -42,9 +44,13 @@ namespace AleaBelli.UI
 
         }
 
+        // Respond to the right mouse button up event by initiating the hit test.
+        public void OnMouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+        }
 
-        // Respond to the left mouse button down event by initiating the hit test.
-        public void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        // Respond to the left mouse button up event by initiating the hit test.
+        public void OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             // reset selection
             game.SelectedRegiment = null;
@@ -111,6 +117,30 @@ namespace AleaBelli.UI
             }
             
         }
+        public void RedrawBrigade(Brigade b, bool removeOldVisuals)
+        {
+            if (b != null)
+            {
+                if (removeOldVisuals)
+                {
+                    // remove the old visual if it exists
+                    DrawingVisual oldVisual = null;
+                    brigadeVisualsById.TryGetValue(b.BrigadeId, out oldVisual);
+                    if (oldVisual != null)
+                    {
+                        RemoveVisualChild(oldVisual);
+                        m_Visuals.Remove(oldVisual);
+                    }
+                }
+
+                // render a new visual
+                DrawingVisual dv = CreateBrigadeDrawingVisual(b);
+                brigadeVisuals[dv] = b;
+                brigadeVisualsById[b.BrigadeId] = dv;
+                m_Visuals.Add(dv);
+                AddVisualChild(dv);
+            }
+        }
 
 
         public void RedrawRegiment(Regiment r, bool removeOldVisuals)
@@ -158,9 +188,9 @@ namespace AleaBelli.UI
                 {
                     foreach (ArmyDivision d in c.Divisons)
                     {
-
                         foreach (Brigade b in d.Brigades)
                         {
+                            RedrawBrigade(b, false);
                             foreach (Regiment r in b.Regiments)
                             {
                                 RedrawRegiment(r, false);
@@ -226,7 +256,55 @@ namespace AleaBelli.UI
 
             dc.Pop();
         }
+        private DrawingVisual CreateBrigadeDrawingVisual(Brigade b)
+        {
+            DrawingVisual drawingVisual = new DrawingVisual();
+            using (DrawingContext dc = drawingVisual.RenderOpen())
+            {
+                DrawBrigade(dc, b);
+            }
+            return drawingVisual;
+        }
 
+        private void DrawBrigade(DrawingContext dc, Brigade r)
+        {
+            int width = r.GetWidthInPaces();
+            int halfwidth = width / 2;
+            int height = r.GetDepthInPaces();
+
+            int x = r.MapX;
+            int y = r.MapY;
+            int angle = r.FacingInDegrees;
+
+            //r.ShortName = DateTime.Now.ToLongTimeString();
+
+            dc.PushTransform(new RotateTransform(angle, x + halfwidth, y));
+
+            // Create a rectangle and draw it in the DrawingContext.
+            Rect rect = new Rect(new System.Windows.Point(x, y), new System.Windows.Size(width, height));
+            dc.DrawRectangle(System.Windows.Media.Brushes.Blue, (System.Windows.Media.Pen)null, rect);
+
+            //Rect rect2 = new Rect(new System.Windows.Point(x, y + height), new System.Windows.Size(width, 10));
+            //dc.DrawRectangle(System.Windows.Media.Brushes.Black, (System.Windows.Media.Pen)null, rect2);
+
+            /*
+            Rect rect3 = new Rect(new System.Windows.Point(x + (halfwidth - widgetsize) //150
+            , y - widgetsize), new System.Windows.Size(20, 10));
+            dc.DrawRectangle(System.Windows.Media.Brushes.Red, (System.Windows.Media.Pen)null, rect3);
+            */
+
+            dc.DrawText(
+
+
+           new FormattedText(r.ShortName,
+              CultureInfo.GetCultureInfo("en-us"),
+              FlowDirection.LeftToRight,
+              new Typeface("Verdana"),
+              12, System.Windows.Media.Brushes.Black),
+              new System.Windows.Point(x, y + height));
+
+            dc.Pop();
+        }
 
         private DrawingVisual CreateRegimentalDrawingVisual(Regiment r)
         {
@@ -249,7 +327,7 @@ namespace AleaBelli.UI
 
 
 
-        class Battalion
+    class Battalion
     {
         public string ShortName { get; internal set; }
 

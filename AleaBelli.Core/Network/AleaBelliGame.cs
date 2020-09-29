@@ -16,11 +16,12 @@ namespace AleaBelli.Core.Network
         private Dictionary<int, Regiment> regiments = new Dictionary<int, Regiment>();
 
         public Regiment SelectedRegiment { get; set; }
+        public Brigade SelectedBrigade { get; set; }
 
         /// <summary>
         /// Runs in background thread CANNOT change visuals
         /// </summary>
-        public void UpdateGameStates(UIChanges changes)
+        public void UpdateGameStates(UIChanges changes, double deltaTimeMS)
         {
             // update the regiments if required
             foreach (Army a in Armies.Values)
@@ -32,6 +33,8 @@ namespace AleaBelli.Core.Network
 
                         foreach (Brigade b in d.Brigades)
                         {
+                            UpdatePosition(b, changes, deltaTimeMS);
+
                             foreach (Regiment r in b.Regiments)
                             {
                                 r.FacingInDegrees += 1;
@@ -46,6 +49,9 @@ namespace AleaBelli.Core.Network
             changes.RegimentalIds.Add(1);
         }
 
+        public void UpdatePosition(Brigade b, UIChanges changes, double deltaTimeMS)
+        {
+        }
 
         public Dictionary<int, Army> Armies
         {

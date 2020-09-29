@@ -38,6 +38,7 @@ namespace AleaBelli.Core.Data
         public int NationId { get; set; }
         public int Men { get; set; }
         public bool IsDirty { get; set; } // the regiments needs redrawing or perhaps a network update ?? 
+        public List<MovementOrders> MovementOrders { get; set; }
 
         public int CurrentWidth
         {

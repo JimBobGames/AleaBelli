@@ -51,6 +51,7 @@
     <Compile Include="Data\Corps.cs" />
     <Compile Include="Data\ArmyDivision.cs" />
     <Compile Include="Data\Nation.cs" />
+    <Compile Include="Data\Officer.cs" />
     <Compile Include="Data\Player.cs" />
     <Compile Include="Data\Regiment.cs" />
     <Compile Include="Data\SimpleObject.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Network\IAleaBelliGame.cs" />
     <Compile Include="Network\StandaloneAleaBelliGame.cs" />
     <Compile Include="Orders\AbstractOrder.cs" />
+    <Compile Include="Orders\MovementOrders.cs" />
     <Compile Include="Orders\RenameOrder.cs" />
     <Compile Include="Persistence\PersistenceManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
