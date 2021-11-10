@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AleaBelli.Core.Orders;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -41,7 +42,7 @@ namespace AleaBelli.Core.Data
 
         public int GetWidthInPaces()
         {
-            return 15sa;
+            return 15;
         }
 
         public int GetDepthInPaces()
