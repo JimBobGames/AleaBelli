@@ -4,8 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AleaBelli"
+        xmlns:CustomControls="clr-namespace:AleaBelli.CustomControls" 
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded" ResizeMode="CanMinimize" WindowState="Maximized" WindowStartupLocation="CenterScreen" >
+    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <CustomControls:PanAndZoomCanvas Background="LightGreen" x:Name="MainWindowCanvas"  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" />
+    </Grid>
+<!--
     <Canvas Name="OuterCanvas">
         <Canvas Background="LightGreen" Name="MapCanvas" Initialized="MapCanvas_Initialized" Height="8000" Width="8000" >
         
@@ -18,4 +23,5 @@
             
         </Canvas>        
     </Canvas>
+    -->
 </Window>

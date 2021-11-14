@@ -48,8 +48,8 @@ namespace AleaBelli
 
             // the visual host
             mapVisualHost = new MapVisualHost(game, controller);
-            this.MapCanvas.Children.Add(mapVisualHost);
-            this.MapCanvas.InvalidateVisual();
+            this.MainWindowCanvas.Children.Add(mapVisualHost);
+            this.MainWindowCanvas.InvalidateVisual();
 
 
             DispatcherTimer timer = new DispatcherTimer();
@@ -57,6 +57,7 @@ namespace AleaBelli
             timer.Tick += timer_Tick;
             timer.Start();
 
+            /*
             //MapCanvas.MouseEnter += new MouseEventHandler(canvas_MouseEnter);
             MapCanvas.MouseWheel += new MouseWheelEventHandler(Canvas_MouseWheel);
             // MapCanvas.MouseLeftButtonUp += new System.Windows.Input.MouseButtonEventHandler(OnMouseLeftButtonDown);
@@ -64,6 +65,7 @@ namespace AleaBelli
             this.MouseRightButtonDown += new System.Windows.Input.MouseButtonEventHandler(OnMouseRightButtonUp);
             this.MouseLeftButtonUp += new System.Windows.Input.MouseButtonEventHandler(OnMouseLeftButtonUp);
             this.SizeChanged += OnWindowSizeChanged;
+            */
 
             lastBackgroundUpdate = DateTime.Now;
             var autoEvent = new AutoResetEvent(false);
@@ -88,9 +90,9 @@ namespace AleaBelli
             // position detail screen
             double height = this.ActualHeight - 120.0;
 
-            SelectedDetailCanvas.Visibility = Visibility.Hidden;
+           // SelectedDetailCanvas.Visibility = Visibility.Hidden;
             //Canvas.s
-            Canvas.SetTop(SelectedDetailCanvas, height);
+         //   Canvas.SetTop(SelectedDetailCanvas, height);
             //SetTop(child, GetTop(child) / (double)e.OldValue * (double)e.NewValue);
 
 
@@ -139,11 +141,11 @@ namespace AleaBelli
         {
             if (game.SelectedRegiment == null)
             {
-                this.SelectedDetailCanvas.Visibility = Visibility.Hidden;
+                //this.SelectedDetailCanvas.Visibility = Visibility.Hidden;
             }
             else
             {
-                this.SelectedDetailCanvas.Visibility = Visibility.Visible;
+               // this.SelectedDetailCanvas.Visibility = Visibility.Visible;
             }
         }
 
@@ -161,7 +163,7 @@ namespace AleaBelli
             {
                 try
                 {
-                    textBlock.Text = lastBackgroundUpdate.ToLongTimeString();
+                   // textBlock.Text = lastBackgroundUpdate.ToLongTimeString();
 
                     mapVisualHost.UpdateGameVisualsWithChangeList(changes);
                     changes = new UIChanges();
@@ -192,16 +194,16 @@ namespace AleaBelli
         {
             if (e.Delta > 0)
             {
-                st.ScaleX *= ScaleRate;
-                st.ScaleY *= ScaleRate;
+               // st.ScaleX *= ScaleRate;
+              //  st.ScaleY *= ScaleRate;
             }
             else
             {
-                st.ScaleX /= ScaleRate;
-                st.ScaleY /= ScaleRate;
+               // st.ScaleX /= ScaleRate;
+              //  st.ScaleY /= ScaleRate;
             }
 
-            MapCanvas.InvalidateVisual();
+           // MapCanvas.InvalidateVisual();
         }
 
 
@@ -219,7 +221,7 @@ namespace AleaBelli
             rect.Height = 2;
             Canvas.SetLeft(rect, p.x);
             Canvas.SetTop(rect, p.y);
-            this.MapCanvas.Children.Add(rect);
+            this.MainWindowCanvas.Children.Add(rect);
         }
 
         private void DrawPoint(Point p)
@@ -238,7 +240,7 @@ namespace AleaBelli
             l.Y2 = end.y;
 
             l.StrokeThickness = 2;
-            this.MapCanvas.Children.Add(l);
+            this.MainWindowCanvas.Children.Add(l);
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {

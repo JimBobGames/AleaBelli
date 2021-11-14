@@ -58,12 +58,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CustomControls\PanAndZoomCanvas.xaml.cs">
+      <DependentUpon>PanAndZoomCanvas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\Widget.xaml.cs">
+      <DependentUpon>Widget.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Controller.cs" />
     <Compile Include="UI\EventHandlerExtensions.cs" />
     <Compile Include="UI\GameRenderer\ExtensionMethods.cs" />
     <Compile Include="UI\GameRenderer\GameRenderer.cs" />
     <Compile Include="UI\GameRenderer\TiledMapRenderer.cs" />
     <Compile Include="UI\MapVisualHost.cs" />
+    <Page Include="CustomControls\PanAndZoomCanvas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomControls\Widget.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
