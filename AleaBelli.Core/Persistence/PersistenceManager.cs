@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TiledSharp;
+using TiledCS;
 
 namespace AleaBelli.Core.Persistence
 {
     public class PersistenceManager
     {
-        public TmxMap LoadTiledMap(string mapname)
+        public TiledMap LoadTiledMap(string mapname)
         {
-            var map = new TmxMap(mapname);
+            var map = new TiledMap(mapname);
+           // var tileset = new TiledTileset("path-to-tileset.tsx");
 
             return map;
         }
