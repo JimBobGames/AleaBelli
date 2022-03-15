@@ -1,0 +1,4 @@
+﻿Sample ACW map
+Pick battle (first bull run)
+Threading
+Setup github build
