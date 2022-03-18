@@ -27,5 +27,7 @@ namespace AleaBelli.Core.Data
             return d;
         }
 
+        public Officer Officer { get; set; }
+
     }
 }

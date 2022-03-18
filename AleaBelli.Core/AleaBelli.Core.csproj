@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,14 +43,15 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="TiledCS, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TiledCS.2.4.2\lib\netstandard2.0\TiledCS.dll</HintPath>
+    <Reference Include="TiledCS, Version=2.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TiledCS.2.5.0\lib\netstandard2.0\TiledCS.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Changes\AbstractChange.cs" />
     <Compile Include="Changes\UnitChange.cs" />
     <Compile Include="Data\Army.cs" />
+    <Compile Include="Data\Battle.cs" />
     <Compile Include="Data\Brigade.cs" />
     <Compile Include="Data\Corps.cs" />
     <Compile Include="Data\ArmyDivision.cs" />
@@ -55,6 +59,7 @@
     <Compile Include="Data\Officer.cs" />
     <Compile Include="Data\Player.cs" />
     <Compile Include="Data\Regiment.cs" />
+    <Compile Include="Data\Scenario.cs" />
     <Compile Include="Data\SimpleObject.cs" />
     <Compile Include="Data\UIChanges.cs" />
     <Compile Include="Hex\Hex.cs" />
@@ -71,6 +76,7 @@
     <Compile Include="Util\Rand.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Config\nations.txt" />
     <Content Include="Maps\HexTilesetv3.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -28,6 +28,6 @@ namespace AleaBelli.Core.Data
             return b;
         }
 
-
+        public Officer Officer { get; set; }
     }
 }
