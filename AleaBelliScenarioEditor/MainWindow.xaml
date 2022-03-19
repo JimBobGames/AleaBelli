@@ -6,7 +6,29 @@
         xmlns:local="clr-namespace:AleaBelliScenarioEditor"
         mc:Ignorable="d"
         Title="Scenario Editor" Height="450" Width="800">
-    <Grid>
-
-    </Grid>
-</Window>
+    
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Open"
+                  Executed="OpenCmdExecuted" >
+        </CommandBinding>
+        <CommandBinding Command="ApplicationCommands.New"
+                  Executed="NewCmdExecuted" >
+        </CommandBinding>
+    </Window.CommandBindings>
+    
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Command="ApplicationCommands.New"/>
+                <MenuItem Command="ApplicationCommands.Open"/>
+                <MenuItem Command="ApplicationCommands.Save"/>
+                <MenuItem Command="ApplicationCommands.SaveAs"/>
+            </MenuItem>
+        </Menu>
+        <TextBox BorderBrush="Black" BorderThickness="2" Margin="25"
+               TextWrapping="Wrap">
+            The MenuItem will not be enabled until
+        this TextBox gets keyboard focus
+        </TextBox>
+    </DockPanel>
+ </Window>

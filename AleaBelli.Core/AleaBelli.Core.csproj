@@ -76,7 +76,8 @@
     <Compile Include="Util\Rand.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Config\nations.txt" />
+    <Content Include="Config\Reference\weapons.txt" />
+    <Content Include="Config\Reference\nations.txt" />
     <Content Include="Maps\HexTilesetv3.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -88,7 +89,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Config\Scenarios\firstbullrun.scn" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -15,8 +15,13 @@ namespace AleaBelli.Test
             Scenario firstBullRun = new Scenario() { Name = "First Bull Run", ShortName = "First Bull Run", Description = "",
                 Date = new DateTime(1861, 07, 21, 08, 00, 0) };
 
+            ScenarioSide union = new ScenarioSide() { Name = "Union" };
+            firstBullRun.AddSide(union);
+            ScenarioSide confederacy = new ScenarioSide() { Name = "Confederacy" };
+            firstBullRun.AddSide(confederacy);
+
             Army aofNEV = new Army() { Name = "Army of Northeastern Virginia" };
-            firstBullRun.AddArmy(aofNEV);
+            union.AddArmy(aofNEV);
             aofNEV.Officer = new Officer() { Name = "Irvin McDowell", OfficerRank = OfficerRank.MajorGeneral };
 
             Corps unionFirstCorps = new Corps() { Name = "1st Corps" };
@@ -41,14 +46,14 @@ namespace AleaBelli.Test
 
 
             Army aofP = new Army() { Name = "Army of the Potomac" };
-            firstBullRun.AddArmy(aofP);
+            confederacy.AddArmy(aofP);
             aofP.Officer = new Officer() { Name = "P. G. T. Beauregard", OfficerRank = OfficerRank.BrigadierGeneral };
 
             Corps confedFirstCorps = new Corps() { Name = "1st Corps" };
             aofP.AddCorps(confedFirstCorps);
 
             Army aofS = new Army() { Name = "Army of the Shenandoah" };
-            firstBullRun.AddArmy(aofS);
+            confederacy.AddArmy(aofS);
             aofS.Officer = new Officer() { Name = "Joseph E. Johnston", OfficerRank = OfficerRank.BrigadierGeneral };
 
             Corps confedSecondCorps = new Corps() { Name = "2nd Corps" };
