@@ -30,9 +30,10 @@ namespace AleaBelliScenarioEditor
         public MainWindow()
         {
             InitializeComponent();
-           // TreeItem root = new TreeItem() { Title = "Menu" };
-           // unitsTreeView.Items.Add(root);
+            // TreeItem root = new TreeItem() { Title = "Menu" };
+            // unitsTreeView.Items.Add(root);
             // BuildTree(null);
+            UpdatePanels(null);
         }
 
         private void BuildTree(Scenario s)
@@ -40,7 +41,7 @@ namespace AleaBelliScenarioEditor
             this.unitsTreeView.Items.Clear();
             if (s != null)
             {
-                TreeViewItem root = new TreeViewItem() { Header = s.Name, IsExpanded = true, DataContext = s};
+                TreeViewItem root = new TreeViewItem() { Header = s.Name, IsExpanded = true, DataContext = s };
 
                 // add each side
                 foreach (ScenarioSide ss in s.SideList)
@@ -73,6 +74,13 @@ namespace AleaBelliScenarioEditor
                 }
 
                 unitsTreeView.Items.Add(root);
+                root.IsSelected = true;
+                UpdatePanels(s);
+
+            }
+            else
+            {
+                UpdatePanels(null);
             }
         }
 
@@ -113,6 +121,45 @@ namespace AleaBelliScenarioEditor
         private void NewCmdExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             //throw new NotImplementedException();
+        }
+
+        private void unitsTreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            SimpleObject actualItem = null;
+            if (unitsTreeView.SelectedItem != null)
+            {
+                actualItem =(SimpleObject)((TreeViewItem)unitsTreeView.SelectedItem).DataContext;
+            }
+            UpdatePanels(actualItem);
+
+        }
+
+        private void UpdatePanels(SimpleObject selectedObject)
+        {
+            bool scenarioPanel = false;
+            bool sidePanel = false;
+            bool armyPanel = false;
+
+            if(selectedObject != null)
+            {
+                if(selectedObject is Scenario)
+                {
+                    scenarioPanel = true;
+                }
+                if (selectedObject is ScenarioSide)
+                {
+                    sidePanel = true;
+                }
+                if (selectedObject is Army)
+                {
+                    armyPanel = true;
+                }
+            }
+
+            this.ScenarioDetailPanel.Visibility = scenarioPanel ? Visibility.Visible : Visibility.Collapsed;
+            this.SideDetailPanel.Visibility = sidePanel ? Visibility.Visible : Visibility.Collapsed;
+            this.ArmyDetailPanel.Visibility = armyPanel ? Visibility.Visible : Visibility.Collapsed;
+
         }
     }
 }

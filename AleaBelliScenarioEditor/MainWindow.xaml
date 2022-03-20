@@ -26,7 +26,17 @@
             </MenuItem>
         </Menu>
         <StackPanel DockPanel.Dock="Right">
-            <TreeView Name="unitsTreeView" Width="300" Height="400"></TreeView>
+            <TreeView Name="unitsTreeView" Width="300" Height="400" SelectedItemChanged="unitsTreeView_SelectedItemChanged"></TreeView>
+            <StackPanel Name="ScenarioDetailPanel" MinHeight="400" Background="Beige">
+                <Label>Scenario Detail</Label>
+            </StackPanel>
+            <StackPanel Name="SideDetailPanel" MinHeight="400" Background="CadetBlue">
+                <Label>Side Detail</Label>
+            </StackPanel>
+            <StackPanel Name="ArmyDetailPanel" MinHeight="400" Background="DarkSalmon">
+                <Label>Army Detail</Label>
+            </StackPanel>
+
             <Button>Button 1</Button>
             <Button>Button 2</Button>
             <Button>Button 3</Button>
