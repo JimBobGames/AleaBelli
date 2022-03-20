@@ -30,5 +30,12 @@ namespace AleaBelli.Core.Persistence
                 serializer.Serialize(file, sc);
             }
         }
+
+        public Scenario LoadScenario(string filename)
+        {
+            Scenario s;
+            s = JsonConvert.DeserializeObject<Scenario>(File.ReadAllText(filename));
+            return s;
+        }
     }
 }

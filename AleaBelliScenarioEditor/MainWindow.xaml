@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AleaBelliScenarioEditor"
         mc:Ignorable="d"
-        Title="Scenario Editor" Height="450" Width="800">
+        Title="Scenario Editor" Height="450" Width="800" WindowState="Maximized">
     
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.Open"
@@ -25,7 +25,16 @@
                 <MenuItem Command="ApplicationCommands.SaveAs"/>
             </MenuItem>
         </Menu>
-        <TextBox BorderBrush="Black" BorderThickness="2" Margin="25"
+        <StackPanel DockPanel.Dock="Right">
+            <TreeView Name="unitsTreeView" Width="300" Height="400"></TreeView>
+            <Button>Button 1</Button>
+            <Button>Button 2</Button>
+            <Button>Button 3</Button>
+            <Button>Button 4</Button>
+            <Button>Button 5</Button>
+            <Button>Button 6</Button>
+        </StackPanel>
+        <TextBox BorderBrush="Black" BorderThickness="1" Margin="0"
                TextWrapping="Wrap">
             The MenuItem will not be enabled until
         this TextBox gets keyboard focus
