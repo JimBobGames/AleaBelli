@@ -9,6 +9,35 @@ namespace AleaBelli.Test
     public class UnitTestScenario
     {
         [TestMethod]
+        public void TestBlenheim()
+        {
+            Scenario blenheim = new Scenario()
+            {
+                Name = "Blenheim",
+                ShortName = "Blenheim",
+                Description = "",
+                Date = new DateTime(1704, 08, 13, 08, 00, 0)
+            };
+
+            ScenarioSide french = new ScenarioSide() { Name = "French" };
+            blenheim.AddSide(french);
+            ScenarioSide grandAlliance = new ScenarioSide() { Name = "Grand Alliance" };
+            blenheim.AddSide(grandAlliance);
+
+            Army frenchArmy = new Army() { Name = "French Army" };
+            french.AddArmy(frenchArmy);
+            frenchArmy.Officer = new Officer() { Name = "Duke of Tallard", OfficerRank = OfficerRank.MajorGeneral };
+
+            Army bavarianArmy = new Army() { Name = "Bavarian Army" };
+            french.AddArmy(bavarianArmy);
+            bavarianArmy.Officer = new Officer() { Name = "Maximilian II Emanuel", OfficerRank = OfficerRank.MajorGeneral };
+
+            // save the file
+            new PersistenceManager().SaveScenario(blenheim, "blenheim.scn");
+
+        }
+
+        [TestMethod]
         public void TestFirstBullRun()
         {
             // create the scenario programatically

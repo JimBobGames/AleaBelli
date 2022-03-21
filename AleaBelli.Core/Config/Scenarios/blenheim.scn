@@ -1,0 +1,50 @@
+{
+  "Date": "1704-08-13T08:00:00",
+  "Weather": 0,
+  "SideList": [
+    {
+      "ArmyList": [
+        {
+          "ArmyId": 0,
+          "Corps": [],
+          "Officer": {
+            "OfficereId": 0,
+            "OfficerRank": 0,
+            "Name": "Duke of Tallard",
+            "ShortName": null,
+            "Description": null
+          },
+          "Name": "French Army",
+          "ShortName": null,
+          "Description": null
+        },
+        {
+          "ArmyId": 0,
+          "Corps": [],
+          "Officer": {
+            "OfficereId": 0,
+            "OfficerRank": 0,
+            "Name": "Maximilian II Emanuel",
+            "ShortName": null,
+            "Description": null
+          },
+          "Name": "Bavarian Army",
+          "ShortName": null,
+          "Description": null
+        }
+      ],
+      "Name": "French",
+      "ShortName": null,
+      "Description": null
+    },
+    {
+      "ArmyList": [],
+      "Name": "Grand Alliance",
+      "ShortName": null,
+      "Description": null
+    }
+  ],
+  "Name": "Blenheim",
+  "ShortName": "Blenheim",
+  "Description": ""
+}

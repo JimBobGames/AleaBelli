@@ -35,6 +35,10 @@
             </StackPanel>
             <StackPanel Name="ArmyDetailPanel" MinHeight="400" Background="DarkSalmon">
                 <Label>Army Detail</Label>
+                <StackPanel Orientation="Horizontal">
+                    <Label>Officer :</Label>
+                    <TextBox Text="{Binding Path=Officer.Name}"></TextBox>
+                </StackPanel>
             </StackPanel>
 
             <Button>Button 1</Button>
