@@ -1,6 +1,7 @@
 {
   "Date": "1861-07-21T08:00:00",
   "Weather": 0,
+  "TilemapName": "Maps\\terrain.tmx",
   "SideList": [
     {
       "ArmyList": [

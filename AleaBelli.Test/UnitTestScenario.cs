@@ -43,6 +43,7 @@ namespace AleaBelli.Test
             // create the scenario programatically
             Scenario firstBullRun = new Scenario() { Name = "First Bull Run", ShortName = "First Bull Run", Description = "",
                 Date = new DateTime(1861, 07, 21, 08, 00, 0) };
+            firstBullRun.TilemapName = @"Maps\terrain.tmx";
 
             ScenarioSide union = new ScenarioSide() { Name = "Union" };
             firstBullRun.AddSide(union);

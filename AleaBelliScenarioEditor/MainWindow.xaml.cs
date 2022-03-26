@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TiledCS;
 
 namespace AleaBelliScenarioEditor
 {
@@ -26,6 +27,8 @@ namespace AleaBelliScenarioEditor
         private string scenarioFilename = "";
 
         private Scenario scenario;
+
+        private TiledMap map;
 
         public MainWindow()
         {
@@ -111,6 +114,7 @@ namespace AleaBelliScenarioEditor
                 {
                     this.Title = "Scenario Editor : " + scenario.Name;
                     BuildTree(scenario);
+                    BuildMap(scenario);
                 }
                 else
                 {
@@ -118,6 +122,35 @@ namespace AleaBelliScenarioEditor
                 }
             }
         }
+
+        /// <summary>
+        /// Render the map onscreen
+        /// </summary>
+        /// <param name="scenario"></param>
+        private void BuildMap(Scenario scenario)
+        {
+            this.MapCanvas.Children.Clear();    
+            map = new PersistenceManager().LoadTiledMap(scenario.TilemapName);
+            Console.WriteLine(map.TileWidth + "  " + map.TileHeight);
+
+            for(int x = 0; x < 5/*map.Width*/; x++)
+            {
+                for (int y = 0; y < 5 /*map.Height*/; y++)
+                {
+                    Rectangle r = new Rectangle()
+                    {
+                        Height = map.TileHeight,
+                        Width = map.TileWidth,
+                        Fill = new SolidColorBrush(Colors.Black)
+                    };
+                    Canvas.SetLeft(r, x * map.TileWidth);
+                    Canvas.SetTop(r, y * map.TileHeight);
+                    this.MapCanvas.Children.Add(r); 
+                }
+            }
+
+        }
+
         private void NewCmdExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             //throw new NotImplementedException();
@@ -139,26 +172,36 @@ namespace AleaBelliScenarioEditor
             bool scenarioPanel = false;
             bool sidePanel = false;
             bool armyPanel = false;
+            bool corpsPanel = false;
 
-            if(selectedObject != null)
+            if (selectedObject != null)
             {
                 if(selectedObject is Scenario)
                 {
                     scenarioPanel = true;
+                    ScenarioDetailPanel.DataContext = selectedObject;
                 }
                 if (selectedObject is ScenarioSide)
                 {
                     sidePanel = true;
+                    SideDetailPanel.DataContext = selectedObject;
                 }
                 if (selectedObject is Army)
                 {
                     armyPanel = true;
+                    ArmyDetailPanel.DataContext = selectedObject;
+                }
+                if (selectedObject is Corps)
+                {
+                    corpsPanel = true;
+                    CorpsDetailPanel.DataContext = selectedObject;
                 }
             }
 
             this.ScenarioDetailPanel.Visibility = scenarioPanel ? Visibility.Visible : Visibility.Collapsed;
             this.SideDetailPanel.Visibility = sidePanel ? Visibility.Visible : Visibility.Collapsed;
             this.ArmyDetailPanel.Visibility = armyPanel ? Visibility.Visible : Visibility.Collapsed;
+            this.CorpsDetailPanel.Visibility = corpsPanel ? Visibility.Visible : Visibility.Collapsed;
 
         }
     }

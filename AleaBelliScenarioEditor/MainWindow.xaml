@@ -29,6 +29,14 @@
             <TreeView Name="unitsTreeView" Width="300" Height="400" SelectedItemChanged="unitsTreeView_SelectedItemChanged"></TreeView>
             <StackPanel Name="ScenarioDetailPanel" MinHeight="400" Background="Beige">
                 <Label>Scenario Detail</Label>
+                <StackPanel Orientation="Horizontal">
+                    <Label Width="100">Name :</Label>
+                    <TextBox Width="200" Text="{Binding Name}"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Width="100">Tilemap :</Label>
+                    <TextBox Width="200" Text="{Binding TilemapName}"></TextBox>
+                </StackPanel>
             </StackPanel>
             <StackPanel Name="SideDetailPanel" MinHeight="400" Background="CadetBlue">
                 <Label>Side Detail</Label>
@@ -37,7 +45,14 @@
                 <Label>Army Detail</Label>
                 <StackPanel Orientation="Horizontal">
                     <Label>Officer :</Label>
-                    <TextBox Text="{Binding Path=Officer.Name}"></TextBox>
+                    <TextBox Width="200" Text="{Binding Officer.Name}"></TextBox>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Name="CorpsDetailPanel" MinHeight="400" Background="DarkSalmon">
+                <Label>Corps Detail</Label>
+                <StackPanel Orientation="Horizontal">
+                    <Label>Officer :</Label>
+                    <TextBox Width="200" Text="{Binding Officer.Name}"></TextBox>
                 </StackPanel>
             </StackPanel>
 
@@ -48,10 +63,8 @@
             <Button>Button 5</Button>
             <Button>Button 6</Button>
         </StackPanel>
-        <TextBox BorderBrush="Black" BorderThickness="1" Margin="0"
-               TextWrapping="Wrap">
-            The MenuItem will not be enabled until
-        this TextBox gets keyboard focus
-        </TextBox>
+        <Canvas Name="MapCanvas" Background="White">
+            
+        </Canvas>
     </DockPanel>
  </Window>

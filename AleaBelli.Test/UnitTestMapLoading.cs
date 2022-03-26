@@ -19,5 +19,12 @@ namespace AleaBelli.Test
             TiledMap map = persistenceManager.LoadTiledMap(@"Maps\testmap.tmx");
         }
 
+        [TestMethod]
+        public void TestLoadTerrainMap()
+        {
+            TiledMap map = persistenceManager.LoadTiledMap(@"Maps\terrain.tmx");
+            Console.WriteLine(map.Tilesets);
+        }
+
     }
 }

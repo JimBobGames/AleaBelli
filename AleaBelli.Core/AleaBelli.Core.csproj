@@ -87,11 +87,19 @@
     <Content Include="Maps\testmap.tmx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Maps\usterrain.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Config\Scenarios\firstbullrun.scn" />
+    <None Include="Maps\terrain.tmx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Maps\ustileset.tsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

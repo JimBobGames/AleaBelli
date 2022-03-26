@@ -42,6 +42,8 @@ namespace AleaBelli.Core.Data
 
         public Weather Weather { get; set; }
 
+        public string TilemapName { get; set; }
+
         public List<ScenarioSide> SideList { 
             get
             {
