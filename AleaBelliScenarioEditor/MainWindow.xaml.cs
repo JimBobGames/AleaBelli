@@ -133,22 +133,65 @@ namespace AleaBelliScenarioEditor
             map = new PersistenceManager().LoadTiledMap(scenario.TilemapName);
             Console.WriteLine(map.TileWidth + "  " + map.TileHeight);
 
-            for(int x = 0; x < 5/*map.Width*/; x++)
+
+
+            TiledLayer[] layers = map.Layers;
+            if (layers != null)
             {
-                for (int y = 0; y < 5 /*map.Height*/; y++)
+                foreach (TiledLayer layer in layers)
                 {
-                    Rectangle r = new Rectangle()
+                    if(layer != null)
                     {
-                        Height = map.TileHeight,
-                        Width = map.TileWidth,
-                        Fill = new SolidColorBrush(Colors.Black)
-                    };
-                    Canvas.SetLeft(r, x * map.TileWidth);
-                    Canvas.SetTop(r, y * map.TileHeight);
-                    this.MapCanvas.Children.Add(r); 
+                        int layerid = layer.id;
+                        TiledMapTileset tiledmapset = map.GetTiledMapTileset(layerid);
+                        if (tiledmapset != null)
+                        {
+                            string tilesetsource = tiledmapset.source;
+                            TiledTileset tileset= new PersistenceManager().LoadTileset(tilesetsource);
+                            TiledImage image = tileset.Image;
+
+                            var uri = new PersistenceManager().GetImageURI(image.source);
+                            BitmapImage bitmap = new BitmapImage(uri);
+
+
+                            TiledTile[] tileArray = tileset.Tiles;
+
+                            int rows = map.Width;
+                            int cols = map.Height;
+
+                            for (int i = 0; i < layer.data.Length; i++)
+                            {
+
+
+                                int tileId = layer.data[i];
+                                if (tileId > 0)
+                                {
+                                   TiledTile tile =   map.GetTiledTile(tiledmapset, tileset, tileId);
+                                    TiledSourceRect tsr = map.GetSourceRect(tiledmapset, tileset, tileId);
+
+                                    int row = i / rows;
+                                    int col = i % cols;
+
+                                    byte flags = layer.dataRotationFlags[i];
+                                    Image img = new Image();
+                                    img.Source = bitmap;
+                                    img.Width = 640;
+                                    img.Height = 640;
+                                    img.ClipToBounds = true;
+                                    RectangleGeometry rect = new RectangleGeometry();
+                                    rect.Rect = new Rect() { Width = 32, Height = 32, X = tsr.x,  Y = tsr.y };
+                                    img.Clip = rect;
+
+                                    Canvas.SetLeft(img, col * 32 - tsr.x);
+                                    Canvas.SetTop(img, row * 32 - tsr.y);
+                                    this.MapCanvas.Children.Add(img);
+                                }
+
+                            }
+                        }
+                    }
                 }
             }
-
         }
 
         private void NewCmdExecuted(object sender, ExecutedRoutedEventArgs e)

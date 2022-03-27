@@ -37,5 +37,17 @@ namespace AleaBelli.Core.Persistence
             s = JsonConvert.DeserializeObject<Scenario>(File.ReadAllText(filename));
             return s;
         }
+
+        public TiledTileset LoadTileset(string tilesetsource)
+        {
+            var tileset = new TiledTileset("Maps\\"+tilesetsource);
+            return tileset;
+        }
+        public Uri GetImageURI(string imagesource)
+        {
+            var path = Path.Combine(Environment.CurrentDirectory, "Maps", imagesource);
+            var uri = new Uri(path);
+            return uri;
+        }
     }
 }

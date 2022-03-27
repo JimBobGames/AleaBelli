@@ -87,7 +87,9 @@
     <Content Include="Maps\testmap.tmx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Maps\usterrain.png" />
+    <Content Include="Maps\usterrain.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="Config\Scenarios\firstbullrun.scn" />
