@@ -20,6 +20,22 @@ namespace AleaBelli.Core.Data
             }
         }
 
+        public int Men
+        {
+            get
+            {
+                int men = 0;
+                foreach (Brigade b in brigades)
+                {
+                    men += b.Men;
+                }
+                return men;
+            }
+            set
+            {
+
+            }
+        }
 
         public Brigade AddBrigade(Brigade b)
         {

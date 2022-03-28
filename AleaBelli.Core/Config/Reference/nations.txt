@@ -1,1 +1,1 @@
-﻿
+﻿# JSON for game nations

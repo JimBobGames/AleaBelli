@@ -69,6 +69,13 @@ namespace AleaBelliScenarioEditor
                                     {
                                         TreeViewItem brigadeItem = new TreeViewItem() { Header = b.Name, IsExpanded = true, DataContext = b };
                                         divisionItem.Items.Add(brigadeItem);
+
+                                        foreach (Regiment r in b.Regiments)
+                                        {
+                                            TreeViewItem regimentItem = new TreeViewItem() { Header = r.Name, IsExpanded = true, DataContext = r };
+                                            brigadeItem.Items.Add(regimentItem);
+                                        }
+
                                     }
                                 }
                             }
@@ -216,6 +223,9 @@ namespace AleaBelliScenarioEditor
             bool sidePanel = false;
             bool armyPanel = false;
             bool corpsPanel = false;
+            bool divisionPanel = false;
+            bool brigadePanel = false;
+            bool regimentPanel = false;
 
             if (selectedObject != null)
             {
@@ -239,12 +249,30 @@ namespace AleaBelliScenarioEditor
                     corpsPanel = true;
                     CorpsDetailPanel.DataContext = selectedObject;
                 }
+                if (selectedObject is ArmyDivision)
+                {
+                    divisionPanel = true;
+                    DivisionDetailPanel.DataContext = selectedObject;
+                }
+                if (selectedObject is Brigade)
+                {
+                    brigadePanel = true;
+                    BrigadeDetailPanel.DataContext = selectedObject;
+                }
+                if (selectedObject is Regiment)
+                {
+                    regimentPanel = true;
+                    RegimentDetailPanel.DataContext = selectedObject;
+                }
             }
 
             this.ScenarioDetailPanel.Visibility = scenarioPanel ? Visibility.Visible : Visibility.Collapsed;
             this.SideDetailPanel.Visibility = sidePanel ? Visibility.Visible : Visibility.Collapsed;
             this.ArmyDetailPanel.Visibility = armyPanel ? Visibility.Visible : Visibility.Collapsed;
             this.CorpsDetailPanel.Visibility = corpsPanel ? Visibility.Visible : Visibility.Collapsed;
+            this.DivisionDetailPanel.Visibility = divisionPanel ? Visibility.Visible : Visibility.Collapsed;
+            this.BrigadeDetailPanel.Visibility = brigadePanel ? Visibility.Visible : Visibility.Collapsed;
+            this.RegimentDetailPanel.Visibility = regimentPanel ? Visibility.Visible : Visibility.Collapsed;
 
         }
     }

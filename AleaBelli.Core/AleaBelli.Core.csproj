@@ -76,8 +76,12 @@
     <Compile Include="Util\Rand.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Config\Reference\weapons.txt" />
-    <Content Include="Config\Reference\nations.txt" />
+    <Content Include="Config\Reference\weapons.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\Reference\nations.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Maps\HexTilesetv3.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

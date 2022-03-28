@@ -11,6 +11,8 @@ namespace AleaBelli.Test
         [TestMethod]
         public void TestBlenheim()
         {
+            // https://en.wikipedia.org/wiki/Blenheim_order_of_battle
+            // http://www.spanishsuccession.nl/weapons.html
             Scenario blenheim = new Scenario()
             {
                 Name = "Blenheim",
@@ -18,11 +20,72 @@ namespace AleaBelli.Test
                 Description = "",
                 Date = new DateTime(1704, 08, 13, 08, 00, 0)
             };
+            blenheim.TilemapName = @"Maps\terrain.tmx";
+
+            /// list of officers
+
+
+            ScenarioSide grandAlliance = new ScenarioSide() { Name = "Grand Alliance" };
+            blenheim.AddSide(grandAlliance);
+
+            Army alliedArmy = new Army() { Name = "Allied Army" };
+            grandAlliance.AddArmy(alliedArmy);
+            alliedArmy.Officer = new Officer() { Name = "John Churchill, 1st Duke of Marlborough", OfficerRank = OfficerRank.MajorGeneral };
+
+            Corps blenheimCorps = new Corps() { Name = "Blenheim Column" };
+            blenheimCorps.Officer = new Officer() { Name = "John Churchill, 1st Duke of Marlborough", OfficerRank = OfficerRank.MajorGeneral };
+            alliedArmy.AddCorps(blenheimCorps);
+
+            ArmyDivision infantryDivision = new ArmyDivision { Name = "Infantry" };
+            infantryDivision.Officer = new Officer() { Name = "John, Lord Cutts", OfficerRank = OfficerRank.MajorGeneral };
+            blenheimCorps.AddDivision(infantryDivision);
+
+            Brigade rowesBrigade = new Brigade() { Name = "Rowe's Brigade"};
+            rowesBrigade.Officer = new Officer() { Name = "Archibald Rowe", OfficerRank= OfficerRank.BrigadierGeneral };
+            infantryDivision.AddBrigade(rowesBrigade);
+
+            Regiment howesRegiment = new Regiment() { Name = "Howe's Regiment of Foot" };
+            howesRegiment.Officer = new Officer() { Name = "Emanuel Scrope Howe", OfficerRank = OfficerRank.BrigadierGeneral };
+            howesRegiment.Men = 584;
+            howesRegiment.RegimentType = RegimentType.LineInfantry;
+            rowesBrigade.AddRegiment(howesRegiment);
+
+            Regiment welshRegiment = new Regiment() { Name = "The Welch Regiment of Fusilier" };
+            welshRegiment.Officer = new Officer() { Name = "Richard Ingoldsby", OfficerRank = OfficerRank.BrigadierGeneral };
+            welshRegiment.Men = 520;
+            welshRegiment.RegimentType = RegimentType.LineInfantry;
+            rowesBrigade.AddRegiment(welshRegiment);
+
+            Regiment dukesRegiment = new Regiment() { Name = "The Duke of Marlborough's Regiment of Foot" };
+            dukesRegiment.Officer = new Officer() { Name = "John Churchill", OfficerRank = OfficerRank.MajorGeneral };
+            dukesRegiment.Men = 524;
+            dukesRegiment.RegimentType = RegimentType.LineInfantry;
+            rowesBrigade.AddRegiment(dukesRegiment);
+
+            Regiment scotsRegiment = new Regiment() { Name = "Scots Fusiliers(21st Foot)" };
+            scotsRegiment.Officer = new Officer() { Name = "Archibald Rowe", OfficerRank = OfficerRank.MajorGeneral };
+            scotsRegiment.Men = 629;
+            scotsRegiment.RegimentType = RegimentType.LineInfantry;
+            rowesBrigade.AddRegiment(scotsRegiment);
+
+            Regiment lordsRegiment = new Regiment() { Name = "Lord North and Grey's Regiment of Foot" };
+            lordsRegiment.Officer = new Officer() { Name = "William North, 6th Baron North & 2nd Baron Grey", OfficerRank = OfficerRank.Colonel };
+            lordsRegiment.Men = 580;
+            lordsRegiment.RegimentType = RegimentType.LineInfantry;
+            rowesBrigade.AddRegiment(lordsRegiment);
+
+
+            Corps centerCorps = new Corps() { Name = "Centre" };
+            centerCorps.Officer = new Officer() { Name = "Charles Churchill", OfficerRank = OfficerRank.MajorGeneral };
+            alliedArmy.AddCorps(centerCorps);
+
+            Corps austrianCorps = new Corps() { Name = "Army of Imperial Austria" };
+            alliedArmy.AddCorps(austrianCorps);
+            austrianCorps.Officer = new Officer() { Name = "Prince François Eugène von Savoy-Carignan", OfficerRank = OfficerRank.MajorGeneral };
+
 
             ScenarioSide french = new ScenarioSide() { Name = "French" };
             blenheim.AddSide(french);
-            ScenarioSide grandAlliance = new ScenarioSide() { Name = "Grand Alliance" };
-            blenheim.AddSide(grandAlliance);
 
             Army frenchArmy = new Army() { Name = "French Army" };
             french.AddArmy(frenchArmy);

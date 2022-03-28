@@ -1,7 +1,228 @@
 {
   "Date": "1704-08-13T08:00:00",
   "Weather": 0,
+  "TilemapName": "Maps\\terrain.tmx",
   "SideList": [
+    {
+      "ArmyList": [
+        {
+          "ArmyId": 0,
+          "Corps": [
+            {
+              "CorpId": 0,
+              "Divisons": [
+                {
+                  "DivisionId": 0,
+                  "Brigades": [
+                    {
+                      "BrigadeId": 0,
+                      "MapX": 0,
+                      "MapY": 0,
+                      "FacingInDegrees": 0,
+                      "BrigadeFormation": 0,
+                      "Officer": {
+                        "OfficereId": 0,
+                        "OfficerRank": 1,
+                        "Name": "Archibald Rowe",
+                        "ShortName": null,
+                        "Description": null
+                      },
+                      "MovementOrders": null,
+                      "Regiments": [
+                        {
+                          "RegimentId": 0,
+                          "MapX": 0,
+                          "MapY": 0,
+                          "FacingInDegrees": 0,
+                          "RegimentFormation": 0,
+                          "RegimentType": 0,
+                          "NationId": 0,
+                          "Men": 584,
+                          "IsDirty": false,
+                          "MovementOrders": null,
+                          "Officer": {
+                            "OfficereId": 0,
+                            "OfficerRank": 1,
+                            "Name": "Emanuel Scrope Howe",
+                            "ShortName": null,
+                            "Description": null
+                          },
+                          "CurrentWidth": 160,
+                          "CurrentHeight": 100,
+                          "Name": "Howe's Regiment of Foot",
+                          "ShortName": null,
+                          "Description": null
+                        },
+                        {
+                          "RegimentId": 0,
+                          "MapX": 0,
+                          "MapY": 0,
+                          "FacingInDegrees": 0,
+                          "RegimentFormation": 0,
+                          "RegimentType": 0,
+                          "NationId": 0,
+                          "Men": 520,
+                          "IsDirty": false,
+                          "MovementOrders": null,
+                          "Officer": {
+                            "OfficereId": 0,
+                            "OfficerRank": 1,
+                            "Name": "Richard Ingoldsby",
+                            "ShortName": null,
+                            "Description": null
+                          },
+                          "CurrentWidth": 160,
+                          "CurrentHeight": 100,
+                          "Name": "The Welch Regiment of Fusilier",
+                          "ShortName": null,
+                          "Description": null
+                        },
+                        {
+                          "RegimentId": 0,
+                          "MapX": 0,
+                          "MapY": 0,
+                          "FacingInDegrees": 0,
+                          "RegimentFormation": 0,
+                          "RegimentType": 0,
+                          "NationId": 0,
+                          "Men": 524,
+                          "IsDirty": false,
+                          "MovementOrders": null,
+                          "Officer": {
+                            "OfficereId": 0,
+                            "OfficerRank": 0,
+                            "Name": "John Churchill",
+                            "ShortName": null,
+                            "Description": null
+                          },
+                          "CurrentWidth": 160,
+                          "CurrentHeight": 100,
+                          "Name": "The Duke of Marlborough's Regiment of Foot",
+                          "ShortName": null,
+                          "Description": null
+                        },
+                        {
+                          "RegimentId": 0,
+                          "MapX": 0,
+                          "MapY": 0,
+                          "FacingInDegrees": 0,
+                          "RegimentFormation": 0,
+                          "RegimentType": 0,
+                          "NationId": 0,
+                          "Men": 629,
+                          "IsDirty": false,
+                          "MovementOrders": null,
+                          "Officer": {
+                            "OfficereId": 0,
+                            "OfficerRank": 0,
+                            "Name": "Archibald Rowe",
+                            "ShortName": null,
+                            "Description": null
+                          },
+                          "CurrentWidth": 160,
+                          "CurrentHeight": 100,
+                          "Name": "Scots Fusiliers(21st Foot)",
+                          "ShortName": null,
+                          "Description": null
+                        },
+                        {
+                          "RegimentId": 0,
+                          "MapX": 0,
+                          "MapY": 0,
+                          "FacingInDegrees": 0,
+                          "RegimentFormation": 0,
+                          "RegimentType": 0,
+                          "NationId": 0,
+                          "Men": 580,
+                          "IsDirty": false,
+                          "MovementOrders": null,
+                          "Officer": {
+                            "OfficereId": 0,
+                            "OfficerRank": 2,
+                            "Name": "William North, 6th Baron North & 2nd Baron Grey",
+                            "ShortName": null,
+                            "Description": null
+                          },
+                          "CurrentWidth": 160,
+                          "CurrentHeight": 100,
+                          "Name": "Lord North and Grey's Regiment of Foot",
+                          "ShortName": null,
+                          "Description": null
+                        }
+                      ],
+                      "Name": "Rowe's Brigade",
+                      "ShortName": null,
+                      "Description": null
+                    }
+                  ],
+                  "Officer": {
+                    "OfficereId": 0,
+                    "OfficerRank": 0,
+                    "Name": "John, Lord Cutts",
+                    "ShortName": null,
+                    "Description": null
+                  },
+                  "Name": "Infantry",
+                  "ShortName": null,
+                  "Description": null
+                }
+              ],
+              "Officer": {
+                "OfficereId": 0,
+                "OfficerRank": 0,
+                "Name": "John Churchill, 1st Duke of Marlborough",
+                "ShortName": null,
+                "Description": null
+              },
+              "Name": "Blenheim Column",
+              "ShortName": null,
+              "Description": null
+            },
+            {
+              "CorpId": 0,
+              "Divisons": [],
+              "Officer": {
+                "OfficereId": 0,
+                "OfficerRank": 0,
+                "Name": "Charles Churchill",
+                "ShortName": null,
+                "Description": null
+              },
+              "Name": "Centre",
+              "ShortName": null,
+              "Description": null
+            },
+            {
+              "CorpId": 0,
+              "Divisons": [],
+              "Officer": {
+                "OfficereId": 0,
+                "OfficerRank": 0,
+                "Name": "Prince François Eugène von Savoy-Carignan",
+                "ShortName": null,
+                "Description": null
+              },
+              "Name": "Army of Imperial Austria",
+              "ShortName": null,
+              "Description": null
+            }
+          ],
+          "Officer": {
+            "OfficereId": 0,
+            "OfficerRank": 0,
+            "Name": "John Churchill, 1st Duke of Marlborough",
+            "ShortName": null,
+            "Description": null
+          },
+          "Name": "Allied Army",
+          "ShortName": null,
+          "Description": null
+        }
+      ],
+      "Name": "Grand Alliance",
+      "ShortName": null,
+      "Description": null
+    },
     {
       "ArmyList": [
         {
@@ -34,12 +255,6 @@
         }
       ],
       "Name": "French",
-      "ShortName": null,
-      "Description": null
-    },
-    {
-      "ArmyList": [],
-      "Name": "Grand Alliance",
       "ShortName": null,
       "Description": null
     }

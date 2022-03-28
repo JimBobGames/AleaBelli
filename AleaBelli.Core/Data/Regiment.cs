@@ -7,6 +7,14 @@ using System.Threading.Tasks;
 
 namespace AleaBelli.Core.Data
 {
+    public enum RegimentExperience
+    {
+        Green = 0,
+        Regular,
+        Veteran,
+        Elite,
+    }
+
     public enum RegimentType
     {
         LineInfantry = 0,
@@ -35,11 +43,13 @@ namespace AleaBelli.Core.Data
         public int MapY { get; set; }
         public int FacingInDegrees { get; set; }
         public RegimentFormation RegimentFormation { get; set; }
+        public RegimentExperience RegimentExperience { get; set; }
         public RegimentType RegimentType { get; set; }
         public int NationId { get; set; }
         public int Men { get; set; }
         public bool IsDirty { get; set; } // the regiments needs redrawing or perhaps a network update ?? 
         public List<MovementOrders> MovementOrders { get; set; }
+        public Officer Officer { get; set; }
 
         public int CurrentWidth
         {

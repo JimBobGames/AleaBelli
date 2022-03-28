@@ -25,6 +25,24 @@ namespace AleaBelli.Core.Data
         public Officer Officer { get; set; }
         public List<MovementOrders> MovementOrders { get; set; }
 
+        public int Men
+        {
+            get
+            {
+                int men = 0;
+                foreach(Regiment reg in regiments)
+                {
+                    men += reg.Men;
+                }
+                return men;
+            }
+            set
+            {
+
+            }
+
+        }
+
         public List<Regiment> Regiments
         {
             get
