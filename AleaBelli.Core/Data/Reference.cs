@@ -12,7 +12,9 @@ namespace AleaBelli.Core.Data
     {
         private Reference() { }
 
-        private Dictionary<int, Weapon> weapons = new Dictionary<int, Weapon>();    
+        private Dictionary<int, Weapon> weapons = new Dictionary<int, Weapon>();
+
+        private Dictionary<int, Doctrine> doctrines = new Dictionary<int, Doctrine>();
 
         private static Reference _instance;
 
@@ -28,7 +30,25 @@ namespace AleaBelli.Core.Data
 
         private void Load()
         {
+            LoadDoctrines();
             LoadWeapons();
+        }
+
+        private void LoadDoctrines()
+        {
+            AdvanceVolleyCharge avcDoctrine = new AdvanceVolleyCharge()
+            {
+                DoctrineId = 1,
+                Name = "Advance, Volley, Charge",
+            };
+            doctrines[avcDoctrine.DoctrineId] = avcDoctrine;
+
+            AdvanceExchangeCharge aecDoctrine = new AdvanceExchangeCharge()
+            {
+                DoctrineId = 2,
+                Name = "Advance, Exchange, Charge",
+            };
+            doctrines[aecDoctrine.DoctrineId] = aecDoctrine;
         }
 
         public Dictionary<int, Weapon> Weapons

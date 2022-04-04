@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace AleaBelli.Core.Data
 {
-    public abstract class Doctrine
+    public abstract class Doctrine : SimpleObject
     {
+        public int DoctrineId { get; set; }
     }
 
     /// <summary>

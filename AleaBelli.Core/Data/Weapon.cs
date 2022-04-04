@@ -12,10 +12,15 @@ namespace AleaBelli.Core.Data
     public class Weapon : SimpleObject
     {
         public int WeaponId { get; set; }
+        public int Year { get; set; }
+        // fire rate per minute for 'regular' troops
+        public int FireRate { get; set; }
 
         public int EffectiveRange { get; set; }
 
         public int MaximumRange { get; set; }
+
+        // percentage of shots that hit (infantry, skirmishers, cavalry, artillery ?)
         public int Accuracy { get; set; }
 
         public int ShotsPerMinute { get; set; }

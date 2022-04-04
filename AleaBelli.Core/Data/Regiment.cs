@@ -46,6 +46,7 @@ namespace AleaBelli.Core.Data
         public RegimentExperience RegimentExperience { get; set; }
         public RegimentType RegimentType { get; set; }
         public int NationId { get; set; }
+        public int WeaponId { get; set; }
         public int Men { get; set; }
         public bool IsDirty { get; set; } // the regiments needs redrawing or perhaps a network update ?? 
         public List<MovementOrders> MovementOrders { get; set; }

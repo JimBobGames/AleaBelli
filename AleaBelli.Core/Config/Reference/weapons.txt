@@ -1,13 +1,49 @@
 {
   "1": {
     "WeaponId": 1,
+    "Year": 1722,
+    "FireRate": 3,
+    "EffectiveRange": 0,
+    "MaximumRange": 0,
+    "Accuracy": 0,
+    "ShotsPerMinute": 0,
     "Name": "Brown Bess",
     "ShortName": null,
     "Description": null
   },
   "2": {
     "WeaponId": 2,
+    "Year": 1700,
+    "FireRate": 3,
+    "EffectiveRange": 0,
+    "MaximumRange": 0,
+    "Accuracy": 0,
+    "ShotsPerMinute": 0,
     "Name": "Smoothbore Flintlock",
+    "ShortName": null,
+    "Description": null
+  },
+  "3": {
+    "WeaponId": 3,
+    "Year": 1866,
+    "FireRate": 3,
+    "EffectiveRange": 0,
+    "MaximumRange": 0,
+    "Accuracy": 0,
+    "ShotsPerMinute": 0,
+    "Name": "Chassepot",
+    "ShortName": null,
+    "Description": null
+  },
+  "4": {
+    "WeaponId": 4,
+    "Year": 1853,
+    "FireRate": 3,
+    "EffectiveRange": 0,
+    "MaximumRange": 0,
+    "Accuracy": 0,
+    "ShotsPerMinute": 0,
+    "Name": "Pattern 1853 Enfield",
     "ShortName": null,
     "Description": null
   }

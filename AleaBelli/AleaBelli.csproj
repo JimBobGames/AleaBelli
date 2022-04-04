@@ -126,7 +126,9 @@
       <Name>AleaBelli.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Docs\simulation.html" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Docs\todo.txt" />
   </ItemGroup>

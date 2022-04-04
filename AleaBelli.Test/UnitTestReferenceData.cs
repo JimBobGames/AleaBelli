@@ -21,6 +21,8 @@ namespace AleaBelli.Test
             {
                 WeaponId = 1,
                 Name = "Brown Bess",
+                Year = 1722,
+                FireRate = 3,
             };
             weapons[brownBess.WeaponId] = brownBess;
 
@@ -28,8 +30,28 @@ namespace AleaBelli.Test
             {
                 WeaponId = 2,
                 Name = "Smoothbore Flintlock",
+                Year = 1700,
+                FireRate = 3,
             };
             weapons[smoothboreFlintlock.WeaponId] = smoothboreFlintlock;
+
+            Weapon chassepot = new Weapon()
+            {
+                WeaponId = 3,
+                Name = "Chassepot",
+                Year = 1866,
+                FireRate = 3,
+            };
+            weapons[chassepot.WeaponId] = chassepot;
+
+            Weapon enfieldMusket = new Weapon()
+            {
+                WeaponId = 4,
+                Name = "Pattern 1853 Enfield",
+                Year = 1853,
+                FireRate = 3,
+            };
+            weapons[enfieldMusket.WeaponId] = enfieldMusket;
 
             pm.SaveObject(weapons, "weapons.txt");
             

@@ -9,5 +9,6 @@ namespace AleaBelli.Core.Data
     public class Battle
     {
         public enum Weather { Clear, Wet, Snow };
+        public enum Terrain { Clear, LightCover, HeavyCover, Fortifications };
     }
 }
