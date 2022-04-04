@@ -55,13 +55,16 @@
     <Compile Include="Data\Brigade.cs" />
     <Compile Include="Data\Corps.cs" />
     <Compile Include="Data\ArmyDivision.cs" />
+    <Compile Include="Data\Doctrine.cs" />
     <Compile Include="Data\Nation.cs" />
     <Compile Include="Data\Officer.cs" />
     <Compile Include="Data\Player.cs" />
+    <Compile Include="Data\Reference.cs" />
     <Compile Include="Data\Regiment.cs" />
     <Compile Include="Data\Scenario.cs" />
     <Compile Include="Data\SimpleObject.cs" />
     <Compile Include="Data\UIChanges.cs" />
+    <Compile Include="Data\Weapon.cs" />
     <Compile Include="Hex\Hex.cs" />
     <Compile Include="Hex\HexMap.cs" />
     <Compile Include="Network\AleaBelliGame.cs" />

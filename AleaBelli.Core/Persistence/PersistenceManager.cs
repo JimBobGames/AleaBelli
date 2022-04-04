@@ -31,6 +31,17 @@ namespace AleaBelli.Core.Persistence
             }
         }
 
+        public void SaveObject(object obj, string filename)
+        {
+            // serialize JSON directly to a file
+            using (StreamWriter file = File.CreateText(filename))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Formatting = Formatting.Indented;
+                serializer.Serialize(file, obj);
+            }
+        }
+
         public Scenario LoadScenario(string filename)
         {
             Scenario s;

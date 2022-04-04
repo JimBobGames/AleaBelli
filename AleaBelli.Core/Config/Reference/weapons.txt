@@ -1,6 +1,14 @@
-﻿# JSON for weapons
-
-# smoothbore flintlock
-# effective range 30
-# hit rate 25
-# rate of fire 1
+{
+  "1": {
+    "WeaponId": 1,
+    "Name": "Brown Bess",
+    "ShortName": null,
+    "Description": null
+  },
+  "2": {
+    "WeaponId": 2,
+    "Name": "Smoothbore Flintlock",
+    "ShortName": null,
+    "Description": null
+  }
+}
