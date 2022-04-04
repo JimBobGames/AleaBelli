@@ -21,6 +21,7 @@ namespace AleaBelli.Core.Data
         public int MaximumRange { get; set; }
 
         // percentage of shots that hit (infantry, skirmishers, cavalry, artillery ?)
+        // this is for point blank declines over distance
         public int Accuracy { get; set; }
 
         public int ShotsPerMinute { get; set; }

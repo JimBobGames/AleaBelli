@@ -23,6 +23,8 @@ namespace AleaBelli.Test
                 Name = "Brown Bess",
                 Year = 1722,
                 FireRate = 3,
+                EffectiveRange = 300,
+                Accuracy = 25,
             };
             weapons[brownBess.WeaponId] = brownBess;
 
@@ -32,6 +34,8 @@ namespace AleaBelli.Test
                 Name = "Smoothbore Flintlock",
                 Year = 1700,
                 FireRate = 3,
+                EffectiveRange = 300,
+                Accuracy = 25,
             };
             weapons[smoothboreFlintlock.WeaponId] = smoothboreFlintlock;
 
@@ -41,6 +45,8 @@ namespace AleaBelli.Test
                 Name = "Chassepot",
                 Year = 1866,
                 FireRate = 3,
+                EffectiveRange = 300,
+                Accuracy = 25,
             };
             weapons[chassepot.WeaponId] = chassepot;
 
@@ -50,6 +56,8 @@ namespace AleaBelli.Test
                 Name = "Pattern 1853 Enfield",
                 Year = 1853,
                 FireRate = 3,
+                EffectiveRange = 300,
+                Accuracy = 25,
             };
             weapons[enfieldMusket.WeaponId] = enfieldMusket;
 

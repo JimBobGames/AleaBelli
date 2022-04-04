@@ -47,6 +47,10 @@ namespace AleaBelli.Core.Data
         public RegimentType RegimentType { get; set; }
         public int NationId { get; set; }
         public int WeaponId { get; set; }
+        public int DoctrineId { get; set; }
+        // each fatigue number represents 1` minute of hard activity
+        public int Fatigue { get; set; }
+
         public int Men { get; set; }
         public bool IsDirty { get; set; } // the regiments needs redrawing or perhaps a network update ?? 
         public List<MovementOrders> MovementOrders { get; set; }
@@ -128,6 +132,11 @@ namespace AleaBelli.Core.Data
         private int GetLightInfantryWidth()
         {
             throw new NotImplementedException();
+        }
+
+        public Weapon GetWeapon()
+        {
+            return Reference.GetInstance().Weapons[WeaponId];
         }
 
     }

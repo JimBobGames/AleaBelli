@@ -34,26 +34,39 @@ namespace AleaBelli.Core.Data
             LoadWeapons();
         }
 
+        public const int PointBlankChargeDoctrineId = 1;
+        public const int EffectiveChargeDoctrineId = 2;
+        public const int EffectiveExchangeDoctrineId = 3;
+
         private void LoadDoctrines()
         {
-            AdvanceVolleyCharge avcDoctrine = new AdvanceVolleyCharge()
+            AdvancePointBlankVolleyCharge avpbDoctrine = new AdvancePointBlankVolleyCharge()
             {
-                DoctrineId = 1,
-                Name = "Advance, Volley, Charge",
+                DoctrineId = PointBlankChargeDoctrineId,
+                Name = "Advance Point Blank, Volley, Charge",
             };
-            doctrines[avcDoctrine.DoctrineId] = avcDoctrine;
+            doctrines[avpbDoctrine.DoctrineId] = avpbDoctrine;
+
+            AdvanceEffectiveVolleyCharge aveffDoctrine = new AdvanceEffectiveVolleyCharge()
+            {
+                DoctrineId = EffectiveChargeDoctrineId,
+                Name = "Advance Effective, Volley, Charge",
+            };
+            doctrines[aveffDoctrine.DoctrineId] = aveffDoctrine;
 
             AdvanceExchangeCharge aecDoctrine = new AdvanceExchangeCharge()
             {
-                DoctrineId = 2,
+                DoctrineId = EffectiveExchangeDoctrineId,
                 Name = "Advance, Exchange, Charge",
             };
             doctrines[aecDoctrine.DoctrineId] = aecDoctrine;
         }
 
         public Dictionary<int, Weapon> Weapons
-            { get { return weapons; } } 
+            { get { return weapons; } }
 
+        public Dictionary<int, Doctrine> Doctrines
+        { get { return doctrines; } }
 
         private void LoadWeapons()
         {

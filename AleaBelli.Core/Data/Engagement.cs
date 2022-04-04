@@ -14,7 +14,7 @@ namespace AleaBelli.Core.Data
     /// </summary>
     public class Engagement
     {
-        public enum EngagementResult { AttackerWin, DefenderWins, Draw };
+        public enum EngagementResult { Engaged, AttackerWin, DefenderWins, Draw };
 
         private List<Regiment> defenders = new List<Regiment>();    
         public Regiment Attacker { get; set; }
@@ -30,11 +30,15 @@ namespace AleaBelli.Core.Data
         /// The distance in yards between the forces
         /// </summary>
         public int Distance { get; set; }
+
+        public bool FirstVolleyFired { get; set; }
         /// <summary>
         /// The distance in yards between the forces
         /// </summary>
         public Weather Weather { get; set; }
 
         public Terrain Terrain { get; set; }
+
+        public int Duration { get; set; }
     }
 }
