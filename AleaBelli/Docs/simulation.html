@@ -1,10 +1,35 @@
 <html>
 <head>
 <title>Alea Belli Simulation</title>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.js'></script>
 </head>
 <body>
 <div>
-<canvas id = "myChart" ></canvas>
+<canvas id = "Chart1" ></canvas>
+<script>
+ const labels = [ '0 Yards',  '50 Yards',  '100 Yards',  '150 Yards',  '200 Yards',  '250 Yards',  '300 Yards',  ]; 
+const data = {
+labels: labels,
+ datasets:
+        [{
+       label: 'Smoothbore Musket',
+  backgroundColor: 'rgb(255, 99, 132)',
+ borderColor: 'rgb(255, 99, 132)',
+ data: [500,200,100,50,0,0,],
+ }]
+ };
+const config = {
+type: 'line',
+data: data,
+options: { }
+};
+</script>
+<script>
+const myChart = new Chart(
+document.getElementById('Chart1'),
+ config
+);
+</script>
 </div>
 </body>
 </html>
