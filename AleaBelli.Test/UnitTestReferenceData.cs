@@ -25,6 +25,7 @@ namespace AleaBelli.Test
                 FireRate = 3,
                 EffectiveRange = 300,
                 Accuracy = 25,
+                HitPercentageInfantry = new int[] { 90, 70, 50, 20, 10, 0, 0}
             };
             weapons[brownBess.WeaponId] = brownBess;
 
@@ -36,6 +37,7 @@ namespace AleaBelli.Test
                 FireRate = 3,
                 EffectiveRange = 300,
                 Accuracy = 25,
+                HitPercentageInfantry = new int[] { 90, 70, 50, 20, 10, 0,0 }
             };
             weapons[smoothboreFlintlock.WeaponId] = smoothboreFlintlock;
 
@@ -47,6 +49,8 @@ namespace AleaBelli.Test
                 FireRate = 3,
                 EffectiveRange = 300,
                 Accuracy = 25,
+                HitPercentageInfantry = new int[] { 90, 70, 50, 20, 10, 0, 0 }
+
             };
             weapons[chassepot.WeaponId] = chassepot;
 
@@ -58,6 +62,9 @@ namespace AleaBelli.Test
                 FireRate = 3,
                 EffectiveRange = 300,
                 Accuracy = 25,
+                //                                  0   50  100 150  200   250   300
+                HitPercentageInfantry = new int[] { 90, 80, 70, 60,  40,   20,   10 }
+
             };
             weapons[enfieldMusket.WeaponId] = enfieldMusket;
 

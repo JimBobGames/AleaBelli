@@ -1,4 +1,5 @@
 ﻿using AleaBelli.Core.Data;
+using AleaBelli.Core.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,6 +67,33 @@ namespace AleaBelli.Core.Engine
             }
             Console.WriteLine("Result " + result);
             return result;
+        }
+
+        public int DoFireWeapon(Weapon w, int distance, int numFirers)
+        {
+            int rangeSteps = distance / 50;
+            /*
+            int accuracy = w.Accuracy;
+
+
+            // adjust the accuracy for range
+            int rangeSteps = distance / 100;
+            for (int i = 0; i < rangeSteps; i++)
+            {
+                accuracy = accuracy / 2;
+            }
+
+
+            int hits = (accuracy * numFirers) / 100;
+            */
+            int rawHits = w.HitPercentageInfantry[rangeSteps];
+            // variation 10 %
+            // int percent = Rand.RandD100();
+            int percent = Rand.RandN(50) + 25; // troop quality ??
+
+            int hits = (rawHits * percent) / 100;
+
+            return hits;
         }
     }
 }

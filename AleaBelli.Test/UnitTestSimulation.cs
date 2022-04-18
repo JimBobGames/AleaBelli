@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using AleaBelli.Core.Data;
+using AleaBelli.Core.Engine;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,22 +23,46 @@ namespace AleaBelli.Test
                 file.WriteLine("</head>");
                 file.WriteLine("<body>");
 
+                //Weapon w = Reference.GetInstance().Weapons[4]; // enfield
+                Weapon w = Reference.GetInstance().Weapons[2]; // smooth bore
+                int[] values = GenerateWeaponHits(w);
+
                 WriteChart(file, "Chart1", 
-                    new int[] { 500, 200, 100, 50, 0, 0}, 
-                    "Smoothbore Musket", 
+                    values,
+                    //new int[] { 500, 200, 100, 50, 0, 0}, 
+                    w.Name, 
                     new string[] { "0 Yards", "50 Yards", "100 Yards", "150 Yards", "200 Yards", "250 Yards", "300 Yards" });
-
-
+                /*
+                WriteChart(file, "Chart2",
+                    new int[] { 500, 200, 100, 50, 0, 0 },
+                    "Brown Bess",
+                    new string[] { "0 Yards", "50 Yards", "100 Yards", "150 Yards", "200 Yards", "250 Yards", "300 Yards" });
+                */
                 file.WriteLine("</body>");
                 file.WriteLine("</html>");
             }
         }
 
+        private int[] GenerateWeaponHits(Weapon w)
+        {
+            CombatEngine e = new CombatEngine();
+            int[] values = new int[7];
+            values[0] = e.DoFireWeapon(w, 0, 1000);
+            values[1] = e.DoFireWeapon(w, 50, 1000);
+            values[2] = e.DoFireWeapon(w, 100, 1000);
+            values[3] = e.DoFireWeapon(w, 150, 1000);
+            values[4] = e.DoFireWeapon(w, 200, 1000);
+            values[5] = e.DoFireWeapon(w, 250, 1000);
+            values[6] = e.DoFireWeapon(w, 300, 1000);
+
+            return values;
+        }
+
         private void WriteChart(StreamWriter file, string chartname, int[] values, string dataset, string[] labels)
         {
 
-            file.WriteLine("<div>");
-            file.WriteLine("<canvas id = \"" + chartname + "\" ></canvas>");
+            file.WriteLine("<div style=\"position: relative; height: 40vh; width: 80vw\">");
+            file.WriteLine("<canvas id =\"" + chartname + "\" ></canvas>");
             file.WriteLine("<script>");
             StringBuilder sb = new StringBuilder();
             sb.Append(" const labels = [");

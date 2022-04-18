@@ -25,5 +25,7 @@ namespace AleaBelli.Core.Data
         public int Accuracy { get; set; }
 
         public int ShotsPerMinute { get; set; }
+
+        public int[] HitPercentageInfantry { get; set; }
     }
 }
