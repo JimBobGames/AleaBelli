@@ -1,12 +1,19 @@
-﻿<Window x:Class="Starfire.MainWindow"
+﻿<Window 
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Starfire"
+        xmlns:UI="clr-namespace:Starfire.UI" x:Class="Starfire.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded" ResizeMode="CanMinimize" WindowState="Maximized" WindowStartupLocation="CenterScreen" >
+    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <DockPanel >
+
+            <UI:PanAndZoomCanvas Background="LightGreen" x:Name="MainWindowCanvas" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" />
+
+        </DockPanel>
 
     </Grid>
 </Window>
+

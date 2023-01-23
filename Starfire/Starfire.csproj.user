@@ -7,7 +7,21 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="UI\PanAndZoomCanvas.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Widget.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\PanAndZoomCanvas.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\Widget.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
