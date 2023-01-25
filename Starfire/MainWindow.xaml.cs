@@ -1,4 +1,5 @@
-﻿using Starfire.Core.Network;
+﻿using Starfire.Core.Hex;
+using Starfire.Core.Network;
 using Starfire.UI;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,7 @@ namespace Starfire
         static readonly object _locker = new object();
         private static MapVisualHost mapVisualHost;
         private Controller controller;
+        private HexMap hexMap;
 
         public MainWindow()
         {
@@ -37,9 +39,11 @@ namespace Starfire
             //AmericanCivilWarGameCreator.CreateGame(game);
             controller = new Controller() { Game = game };
 
+            // the hex map
+            hexMap = MapHelper.LoadMap("dummy");
 
             // the visual host
-            mapVisualHost = new MapVisualHost(game, controller);
+            mapVisualHost = new MapVisualHost(game, controller, hexMap);
             this.MainWindowCanvas.Children.Add(mapVisualHost);
             this.MainWindowCanvas.InvalidateVisual();
         }

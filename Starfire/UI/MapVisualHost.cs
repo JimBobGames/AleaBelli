@@ -1,4 +1,5 @@
 ﻿using Starfire.Core.Data;
+using Starfire.Core.Hex;
 using Starfire.Core.Network;
 using System;
 using System.Collections.Generic;
@@ -8,10 +9,11 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using static Starfire.Core.Hex.HexMap;
 
 namespace Starfire.UI
 {
-     /// <summary>
+    /// <summary>
     /// https://www.c-sharpcorner.com/UploadFile/393ac5/frameworkelement-class-in-wpf/
     /// 
     /// https://docs.microsoft.com/en-us/dotnet/framework/wpf/advanced/optimizing-performance-2d-graphics-and-imaging
@@ -25,14 +27,19 @@ namespace Starfire.UI
         private IStarfireGame game;
         private Controller controller;
         private Dictionary<DrawingVisual, Counter> counterVisuals = new Dictionary<DrawingVisual, Counter>();
+        private Dictionary<DrawingVisual, MapHex> hexVisuals = new Dictionary<DrawingVisual, MapHex>();
         private Dictionary<int, DrawingVisual> counterVisualsById = new Dictionary<int, DrawingVisual>();
+        private HexMap hexMap;
+        private Layout layout;
 
-
-        public MapVisualHost(IStarfireGame game, Controller controller)
+        public MapVisualHost(IStarfireGame game, Controller controller, HexMap hexMap)
         {
             this.game = game;
             this.ClipToBounds = false;
             this.controller = controller;
+            this.hexMap = hexMap;
+            layout = new Layout(Layout.flat, new Core.Hex.Point(40,40), new Core.Hex.Point(0,0));
+
             UpdateGameVisuals();
 
             // Add the event handler for MouseLeftButtonUp.
@@ -56,9 +63,14 @@ namespace Starfire.UI
             return m_Visuals[index];
         }
 
-        /// <summary>
-        /// Runs in the game UI Thread
-        /// </summary>
+        public void OnMapHex(MapHex mh)
+        {
+            DrawHex(mh);
+        }
+
+    /// <summary>
+    /// Runs in the game UI Thread
+    /// </summary>
         public void UpdateGameVisuals()
         {
             // Remove all Visuals
@@ -66,10 +78,21 @@ namespace Starfire.UI
             m_Visuals.Clear();
 
             counterVisuals.Clear();
+            hexVisuals.Clear();
+
+            // draw the hex map
+            hexMap.AllHexesInMapCoords(OnMapHex);
+
+            //foreach (var h in hexMap.Hexes())
+            //{
+            //    DrawHex(h);
+            //}
 
             Counter c = new Counter();
             c.MapX = 10;
-            RedrawCounter(c, false);
+            //RedrawCounter(c, false);
+           
+            
             /*
                         // update the regiments if required
                         foreach (Army a in game.Armies.Values)
@@ -93,6 +116,37 @@ namespace Starfire.UI
             */
 
 
+        }
+
+        private void DrawHex(MapHex mh)
+        {
+            // render a new visual
+            DrawingVisual dv = CreateHexDrawingVisual(mh);
+            hexVisuals[dv] = mh;
+            m_Visuals.Add(dv);
+            AddVisualChild(dv);
+        }
+
+        private DrawingVisual CreateHexDrawingVisual(MapHex mh)
+        {
+            List<Core.Hex.Point> corners = layout.PolygonCorners(mh.h);
+
+
+
+            int width = 5;
+            int height = 5;
+
+            DrawingVisual drawingVisual = new DrawingVisual();
+            using (DrawingContext dc = drawingVisual.RenderOpen())
+            {
+                foreach (Core.Hex.Point p in corners)
+                {
+                    //DrawCounter(dc, c);
+                    Rect rect = new Rect(new System.Windows.Point(p.x, p.y), new System.Windows.Size(width, height));
+                    dc.DrawRectangle(System.Windows.Media.Brushes.Red, (System.Windows.Media.Pen)null, rect);
+                }
+            }
+            return drawingVisual;
         }
 
 
